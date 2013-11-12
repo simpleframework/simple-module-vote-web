@@ -1,0 +1,91 @@
+.VoteMgrPage {
+  padding: 10px;
+}
+
+.VoteMgrPage>div[id] {
+  width: 90%;
+  -webkit-box-shadow: 5px 5px 5px #aaa;
+  -moz-box-shadow: 5px 5px 5px #aaa;
+  box-shadow: 5px 5px 5px #aaa;
+}
+
+.VoteItemListForm .tbar {
+  padding: 8px;
+  background-color: #fafafa;
+  border: 1px solid #bbb;
+  margin-bottom: -1px;
+  border-bottom: 0;
+  font-size: 9.5pt;
+  color: #145;
+  overflow: hidden;
+}
+
+/***************************************************/
+/*                  VotePostPage                   */
+/***************************************************/
+.VotePostPage {
+  border-bottom: 1px solid #aaa;
+}
+
+.VotePostPage .vote_title,
+.VotePostPage .vote_btn {
+  background: #f9f9f9; 
+  padding: 8px;
+}
+
+.VotePostPage .vote_title {
+  border-bottom: 1px solid #aaa;
+}
+
+.VotePostPage .vote_btn {
+  border-top: 1px solid #aaa;
+}
+
+.VotePostPage .vote_title .l1 {
+  font-size: 12.5pt;
+  font-weight: bold;
+}
+
+.VotePostPage .vote_title .l2 {
+  margin: 4px 0 2px 0;
+  color: #888;
+}
+
+.VotePostPage .vi {
+  padding: 10px;
+}
+
+.VotePostPage .vi:hover {
+  background-color: #eef;
+}
+
+.VotePostPage .vgc {
+  border-bottom: 1px solid #aaa;
+  margin-bottom: -1px;
+}
+
+.VotePostPage .vg {
+  font-size: 10.5pt;
+  font-weight: bold;
+  padding: 10px 8px;
+  border-bottom: 1px dashed #aaa;
+}
+
+.VotePostPage .vgc .vi {
+  padding-left: 15px;
+}
+
+.VotePostPage table {
+  width: 100%;
+}
+
+.VotePostPage .vote_num {
+  font-family: Georgia;
+  font-size: 11px;
+  text-align: right;
+  color: #440;
+}
+
+.VotePostPage .simple_progress {
+  margin-bottom: -3px;
+}
