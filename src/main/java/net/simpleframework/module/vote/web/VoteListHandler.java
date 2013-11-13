@@ -35,31 +35,19 @@ public abstract class VoteListHandler extends AbstractDbTablePagerHandler {
 	protected IVoteContext voteContext;
 
 	private final MenuItems CONTEXT_MENUS = MenuItems
-			.of(MenuItem.of($m("Button.Preview")).setOnclick(
-					"$Actions['VoteFormHandler_previewWin']('voteId=' + $pager_action(item).rowId());"))
+			.of(MenuItem.of($m("Button.Preview")).setOnclick_act("VoteFormHandler_previewWin",
+					"voteId"))
+			.append(MenuItem.sep())
+			.append(MenuItem.itemEdit().setOnclick_act("VoteFormHandler_addWin", "voteId"))
+			.append(
+					MenuItem.itemLog().setTitle($m("VoteListHandler.1"))
+							.setOnclick_act("VoteFormHandler_log2Win", "beanId"))
+			.append(MenuItem.sep())
+			.append(MenuItem.itemDelete().setOnclick_act("VoteFormHandler_delete", "id"))
 			.append(MenuItem.sep())
 			.append(
-					MenuItem
-							.itemEdit()
-							.setOnclick(
-									"$Actions['VoteFormHandler_addWin']('voteId=' + $pager_action(item).rowId());"))
-			.append(
-					MenuItem
-							.itemLog()
-							.setTitle($m("VoteListHandler.1"))
-							.setOnclick(
-									"$Actions['VoteFormHandler_log2Win']('beanId=' + $pager_action(item).rowId());"))
-			.append(MenuItem.sep())
-			.append(
-					MenuItem.itemDelete().setOnclick(
-							"$Actions['VoteFormHandler_delete']('id=' + $pager_action(item).rowId());"))
-			.append(MenuItem.sep())
-			.append(
-					MenuItem
-							.itemLog()
-							.setTitle($m("VoteListHandler.0"))
-							.setOnclick(
-									"$Actions['VoteFormHandler_logWin']('voteId=' + $pager_action(item).rowId());"));
+					MenuItem.itemLog().setTitle($m("VoteListHandler.0"))
+							.setOnclick_act("VoteFormHandler_logWin", "voteId"));
 
 	@Override
 	public MenuItems getContextMenu(final ComponentParameter cp, final MenuBean menuBean,
