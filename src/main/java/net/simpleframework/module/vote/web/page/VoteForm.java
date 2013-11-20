@@ -120,12 +120,12 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 
 		JavascriptForward js;
 		if (insert) {
-			js = new JavascriptForward("$Actions['VoteFormHandler_addForm']('voteId=").append(
+			js = new JavascriptForward("$Actions['AbstractWebVotePlugin_addForm']('voteId=").append(
 					vote.getId()).append("');");
 		} else {
-			js = new JavascriptForward("$Actions['VoteFormHandler_addWin'].close();");
+			js = new JavascriptForward("$Actions['AbstractWebVotePlugin_addWin'].close();");
 		}
-		js.append("$Actions['VoteFormHandler_list']();");
+		js.append("$Actions['AbstractWebVotePlugin_list']();");
 		return js;
 	}
 

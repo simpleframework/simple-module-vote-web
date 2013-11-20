@@ -76,7 +76,7 @@ public class VoteMgrPage extends T1ResizedTemplatePage implements IVoteContextAw
 	@Override
 	public ElementList getLeftElements(final PageParameter pp) {
 		return ElementList.of(LinkButton.deleteBtn().setOnclick(
-				"$Actions['VoteFormHandler_list'].doAct('VoteFormHandler_delete');"));
+				"$Actions['AbstractWebVotePlugin_list'].doAct('AbstractWebVotePlugin_delete');"));
 	}
 
 	@Override

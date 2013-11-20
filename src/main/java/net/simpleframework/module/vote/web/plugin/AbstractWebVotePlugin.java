@@ -1,12 +1,15 @@
 package net.simpleframework.module.vote.web.plugin;
 
 import static net.simpleframework.common.I18n.$m;
+import net.simpleframework.ado.db.common.TableColumn;
+import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.trans.Transaction;
 import net.simpleframework.module.common.plugin.AbstractModulePlugin;
 import net.simpleframework.module.vote.IVoteContext;
 import net.simpleframework.module.vote.IVoteContextAware;
+import net.simpleframework.module.vote.IVoteService;
 import net.simpleframework.module.vote.Vote;
 import net.simpleframework.module.vote.web.IVoteWebContext;
 import net.simpleframework.module.vote.web.VoteLogRef;
@@ -27,6 +30,7 @@ import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
 import net.simpleframework.mvc.component.base.ajaxrequest.DefaultAjaxRequestHandler;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
+import net.simpleframework.mvc.component.ui.pager.TablePagerUtils;
 import net.simpleframework.mvc.component.ui.window.WindowBean;
 
 /**
@@ -43,17 +47,17 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 		// 添加投票窗口
 		addVoteComponent_addBtn(pp);
 		return new LinkButton($m("AbstractWebVotePlugin.0"))
-				.setOnclick("$Actions['VoteFormHandler_addWin']('voteMark=" + getMark() + "&contentId="
-						+ StringUtils.blank(contentId) + "');");
+				.setOnclick("$Actions['AbstractWebVotePlugin_addWin']('voteMark=" + getMark()
+						+ "&contentId=" + StringUtils.blank(contentId) + "');");
 	}
 
 	@Override
 	public TablePagerBean addVoteComponent_Tbl(final PageParameter pp) {
 		// log
-		pp.addComponentBean("VoteFormHandler_logPage", AjaxRequestBean.class).setUrlForward(
+		pp.addComponentBean("AbstractWebVotePlugin_logPage", AjaxRequestBean.class).setUrlForward(
 				AbstractMVCPage.url(VoteLogPage.class));
-		pp.addComponentBean("VoteFormHandler_logWin", WindowBean.class)
-				.setContentRef("VoteFormHandler_logPage").setHeight(540).setWidth(864);
+		pp.addComponentBean("AbstractWebVotePlugin_logWin", WindowBean.class)
+				.setContentRef("AbstractWebVotePlugin_logPage").setHeight(540).setWidth(864);
 
 		// edit log
 		final IModuleRef ref = ((IVoteWebContext) context).getLogRef();
@@ -61,20 +65,24 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 			((VoteLogRef) ref).addLogComponent(pp);
 		}
 
+		// move
+		pp.addComponentBean("AbstractWebVotePlugin_move", AjaxRequestBean.class).setHandleClass(
+				MoveAction.class);
+
 		// delete
-		pp.addComponentBean("VoteFormHandler_delete", AjaxRequestBean.class)
+		pp.addComponentBean("AbstractWebVotePlugin_delete", AjaxRequestBean.class)
 				.setConfirmMessage($m("Confirm.Delete")).setHandleClass(DeleteAction.class);
 
 		// preview
-		pp.addComponentBean("VoteFormHandler_previewPage", AjaxRequestBean.class).setUrlForward(
-				AbstractMVCPage.url(VotePostPage.class));
-		pp.addComponentBean("VoteFormHandler_previewWin", WindowBean.class)
-				.setContentRef("VoteFormHandler_previewPage").setWidth(400).setHeight(480)
+		pp.addComponentBean("AbstractWebVotePlugin_previewPage", AjaxRequestBean.class)
+				.setUrlForward(AbstractMVCPage.url(VotePostPage.class));
+		pp.addComponentBean("AbstractWebVotePlugin_previewWin", WindowBean.class)
+				.setContentRef("AbstractWebVotePlugin_previewPage").setWidth(400).setHeight(480)
 				.setTitle($m("Button.Preview"));
 
 		final TablePagerBean tablePager = pp
-				.addComponentBean("VoteFormHandler_list", TablePagerBean.class).setShowLineNo(true)
-				.setShowCheckbox(true);
+				.addComponentBean("AbstractWebVotePlugin_list", TablePagerBean.class)
+				.setShowLineNo(true).setShowCheckbox(true);
 		tablePager
 				.addColumn(new TablePagerColumn("text", $m("VoteForm.0")).setTextAlign(ETextAlign.left))
 				.addColumn(
@@ -92,11 +100,26 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 	@Override
 	public void addVoteComponent_addBtn(final PageParameter pp) {
 		// 添加投票
-		pp.addComponentBean("VoteFormHandler_addForm", AjaxRequestBean.class).setHandleClass(
+		pp.addComponentBean("AbstractWebVotePlugin_addForm", AjaxRequestBean.class).setHandleClass(
 				VoteFormAjaxRequest.class);
-		pp.addComponentBean("VoteFormHandler_addWin", WindowBean.class)
-				.setContentRef("VoteFormHandler_addForm").setTitle($m("AbstractWebVotePlugin.0"))
+		pp.addComponentBean("AbstractWebVotePlugin_addWin", WindowBean.class)
+				.setContentRef("AbstractWebVotePlugin_addForm").setTitle($m("AbstractWebVotePlugin.0"))
 				.setHeight(540).setWidth(900);
+	}
+
+	public static class MoveAction extends DefaultAjaxRequestHandler implements IVoteContextAware {
+		@Transaction(context = IVoteContext.class)
+		@Override
+		public IForward ajaxProcess(final ComponentParameter cp) {
+			final IVoteService service = context.getVoteService();
+			final Vote item = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID));
+			final Vote item2 = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID2));
+			if (item != null && item2 != null) {
+				service.exchange(item, item2, new TableColumn("oorder"),
+						Convert.toBool(cp.getParameter(TablePagerUtils.PARAM_MOVE_UP)));
+			}
+			return new JavascriptForward("$Actions['AbstractWebVotePlugin_list']();");
+		}
 	}
 
 	public static class DeleteAction extends DefaultAjaxRequestHandler implements IVoteContextAware {
@@ -107,7 +130,7 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 			if (ids != null) {
 				context.getVoteService().delete(ids);
 			}
-			return new JavascriptForward("$Actions['VoteFormHandler_list']();");
+			return new JavascriptForward("$Actions['AbstractWebVotePlugin_list']();");
 		}
 	}
 

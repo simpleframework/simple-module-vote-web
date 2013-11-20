@@ -22,7 +22,7 @@ public class VoteWebContext extends VoteContext implements IVoteWebContext {
 
 	@Override
 	public IModuleRef getLogRef() {
-		return null;
+		return getRef("net.simpleframework.module.vote.web.VoteLogRef");
 	}
 
 	@Override

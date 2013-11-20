@@ -18,10 +18,10 @@ import net.simpleframework.mvc.component.ui.window.WindowBean;
 public class VoteLogRef extends LogRef {
 
 	public void addLogComponent(final PageParameter pp) {
-		pp.addComponentBean("VoteFormHandler_log2Page", AjaxRequestBean.class).setUrlForward(
+		pp.addComponentBean("AbstractWebVotePlugin_log2Page", AjaxRequestBean.class).setUrlForward(
 				AbstractMVCPage.url(VoteEditLogPage.class));
-		pp.addComponentBean("VoteFormHandler_log2Win", WindowBean.class)
-				.setContentRef("VoteFormHandler_log2Page").setHeight(540).setWidth(864);
+		pp.addComponentBean("AbstractWebVotePlugin_log2Win", WindowBean.class)
+				.setContentRef("AbstractWebVotePlugin_log2Page").setHeight(540).setWidth(864);
 	}
 
 	public static class VoteEditLogPage extends EntityUpdateLogPage implements IVoteContextAware {

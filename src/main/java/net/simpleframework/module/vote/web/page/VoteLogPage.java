@@ -103,7 +103,7 @@ public class VoteLogPage extends OneTableTemplatePage implements IVoteContextAwa
 			kv.put("itemId", context.getVoteItemService().getBean(log.getItemId()));
 			kv.put("createDate", log.getCreateDate());
 			final ID userId = log.getUserId();
-			kv.put("userId", toIconUser(cp, userId == null ? $m("VoteLogPage.4") : cp.getUser(userId)));
+			kv.put("userId", toIconUser(cp, userId == null ? $m("VoteLogPage.4") : userId));
 			kv.put("ip", log.getIp());
 			final StringBuilder sb = new StringBuilder();
 			sb.append(ButtonElement.deleteBtn().setOnclick(

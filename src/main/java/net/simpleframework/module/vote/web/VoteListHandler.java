@@ -34,19 +34,37 @@ public abstract class VoteListHandler extends AbstractDbTablePagerHandler {
 	protected IVoteContext voteContext;
 
 	private final MenuItems CONTEXT_MENUS = MenuItems
-			.of(MenuItem.of($m("Button.Preview")).setOnclick_act("VoteFormHandler_previewWin",
-					"voteId"))
+			.of()
+			.append(MenuItem.itemEdit().setOnclick_act("AbstractWebVotePlugin_addWin", "voteId"))
+			.append(
+					MenuItem.of($m("Button.Preview")).setOnclick_act("AbstractWebVotePlugin_previewWin",
+							"voteId"))
 			.append(MenuItem.sep())
-			.append(MenuItem.itemEdit().setOnclick_act("VoteFormHandler_addWin", "voteId"))
+			.append(
+					MenuItem.of($m("VoteListHandler.0")).setOnclick_act("AbstractWebVotePlugin_logWin",
+							"voteId"))
+			.append(MenuItem.sep())
 			.append(
 					MenuItem.itemLog().setTitle($m("VoteListHandler.1"))
-							.setOnclick_act("VoteFormHandler_log2Win", "beanId"))
+							.setOnclick_act("AbstractWebVotePlugin_log2Win", "beanId"))
 			.append(MenuItem.sep())
-			.append(MenuItem.itemDelete().setOnclick_act("VoteFormHandler_delete", "id"))
+			.append(MenuItem.itemDelete().setOnclick_act("AbstractWebVotePlugin_delete", "id"))
 			.append(MenuItem.sep())
 			.append(
-					MenuItem.itemLog().setTitle($m("VoteListHandler.0"))
-							.setOnclick_act("VoteFormHandler_logWin", "voteId"));
+					MenuItem
+							.of($m("Menu.move"))
+							.addChild(
+									MenuItem.of($m("Menu.up"), MenuItem.ICON_UP,
+											"$pager_action(item).move(true, 'AbstractWebVotePlugin_move');"))
+							.addChild(
+									MenuItem.of($m("Menu.up2"), MenuItem.ICON_UP2,
+											"$pager_action(item).move2(true, 'AbstractWebVotePlugin_move');"))
+							.addChild(
+									MenuItem.of($m("Menu.down"), MenuItem.ICON_DOWN,
+											"$pager_action(item).move(false, 'AbstractWebVotePlugin_move');"))
+							.addChild(
+									MenuItem.of($m("Menu.down2"), MenuItem.ICON_DOWN2,
+											"$pager_action(item).move2(false, 'AbstractWebVotePlugin_move');")));
 
 	@Override
 	public MenuItems getContextMenu(final ComponentParameter cp, final MenuBean menuBean,
@@ -60,7 +78,7 @@ public abstract class VoteListHandler extends AbstractDbTablePagerHandler {
 		final KVMap kv = new KVMap();
 		final ID id = vote.getId();
 		kv.put("text", new LinkElement(vote.getText())
-				.setOnclick("$Actions['VoteFormHandler_addWin']('voteId=" + id + "');"));
+				.setOnclick("$Actions['AbstractWebVotePlugin_addWin']('voteId=" + id + "');"));
 		kv.put("userId", AbstractTemplatePage.toIconUser(cp, vote.getUserId()));
 		kv.put("anonymous", vote.isAnonymous() ? $m("Yes") : $m("No"));
 		kv.put("createDate", vote.getCreateDate());
@@ -68,10 +86,10 @@ public abstract class VoteListHandler extends AbstractDbTablePagerHandler {
 		final StringBuilder sb = new StringBuilder();
 		sb.append(
 				new ButtonElement($m("Button.Preview"))
-						.setOnclick("$Actions['VoteFormHandler_previewWin']('voteId=" + id + "');"))
+						.setOnclick("$Actions['AbstractWebVotePlugin_previewWin']('voteId=" + id + "');"))
 				.append(SpanElement.SPACE);
 		sb.append(ButtonElement.logBtn().setText($m("VoteListHandler.0"))
-				.setOnclick("$Actions['VoteFormHandler_logWin']('voteId=" + id + "');"));
+				.setOnclick("$Actions['AbstractWebVotePlugin_logWin']('voteId=" + id + "');"));
 		sb.append(SpanElement.SPACE).append(AbstractTablePagerSchema.IMG_DOWNMENU);
 		kv.put(TablePagerColumn.OPE, sb.toString());
 		return kv;
