@@ -10,6 +10,7 @@ import net.simpleframework.common.StringUtils;
 import net.simpleframework.ctx.trans.Transaction;
 import net.simpleframework.module.vote.IVoteContext;
 import net.simpleframework.module.vote.IVoteContextAware;
+import net.simpleframework.module.vote.IVoteItemService;
 import net.simpleframework.module.vote.IVoteService;
 import net.simpleframework.module.vote.Vote;
 import net.simpleframework.module.vote.VoteException;
@@ -33,8 +34,10 @@ import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.base.validation.EValidatorMethod;
 import net.simpleframework.mvc.component.base.validation.Validator;
 import net.simpleframework.mvc.component.ui.calendar.CalendarBean;
+import net.simpleframework.mvc.component.ui.menu.MenuItem;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
+import net.simpleframework.mvc.component.ui.pager.TablePagerUtils;
 import net.simpleframework.mvc.component.ui.window.WindowBean;
 import net.simpleframework.mvc.template.lets.FormTableRow_ListTemplatePage;
 
@@ -63,7 +66,7 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 				.setEditable(true).setDblclickEdit(false);
 		tablePager.addColumn(
 				new TablePagerColumn("text", $m("VoteForm.0")).setTextAlign(ETextAlign.left))
-				.addColumn(TablePagerColumn.OPE().setWidth(130));
+				.addColumn(TablePagerColumn.OPE().setWidth(80));
 
 		// delete
 		addDeleteAjaxRequest(pp, "VoteForm_itemDelete").setHandleMethod("doItemDelete");
@@ -73,6 +76,9 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 		addComponentBean(pp, "VoteForm_itemEditWin", WindowBean.class)
 				.setContentRef("VoteForm_itemEditPage").setTitle($m("VoteForm.9")).setWidth(480)
 				.setHeight(280);
+
+		// exchange
+		addAjaxRequest(pp, "VoteForm_exchange").setHandleMethod("doExchange");
 	}
 
 	protected static Vote getVote(final PageParameter pp) {
@@ -83,6 +89,17 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 		final Object[] ids = StringUtils.split(cp.getParameter("id"));
 		if (ids != null) {
 			context.getVoteItemService().delete(ids);
+		}
+		return new JavascriptForward("$Actions['VoteForm_tbl']();");
+	}
+
+	public IForward doExchange(final ComponentParameter cp) {
+		final IVoteItemService service = context.getVoteItemService();
+		final VoteItem item = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID));
+		final VoteItem item2 = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID2));
+		if (item != null && item2 != null) {
+			service.exchange(item, item2,
+					Convert.toBool(cp.getParameter(TablePagerUtils.PARAM_MOVE_UP)));
 		}
 		return new JavascriptForward("$Actions['VoteForm_tbl']();");
 	}
@@ -222,6 +239,16 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 		protected ButtonElement getDeleteButton(final VoteItem vi) {
 			return ButtonElement.deleteBtn().setOnclick(
 					"$Actions['VoteForm_itemDelete']('id=" + vi.getId() + "');");
+		}
+
+		@Override
+		protected MenuItem getDeleteMenuItem() {
+			return MenuItem.itemDelete().setOnclick_act("VoteForm_itemDelete", "id");
+		}
+
+		@Override
+		protected String getExchangeAction() {
+			return "VoteForm_exchange";
 		}
 
 		@Override

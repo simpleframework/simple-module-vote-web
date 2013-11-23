@@ -5,6 +5,7 @@ import static net.simpleframework.common.I18n.$m;
 import java.util.Map;
 
 import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.ctx.trans.Transaction;
@@ -22,8 +23,13 @@ import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.ui.menu.MenuBean;
+import net.simpleframework.mvc.component.ui.menu.MenuItem;
+import net.simpleframework.mvc.component.ui.menu.MenuItems;
+import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerSchema;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
+import net.simpleframework.mvc.component.ui.pager.TablePagerUtils;
 import net.simpleframework.mvc.component.ui.pager.db.AbstractDbTablePagerHandler;
 import net.simpleframework.mvc.component.ui.window.WindowBean;
 import net.simpleframework.mvc.template.lets.OneTableTemplatePage;
@@ -45,7 +51,7 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 				.setDblclickEdit(false).setNoResultDesc(null);
 		tablePager.addColumn(
 				new TablePagerColumn("text", $m("VoteForm.0")).setTextAlign(ETextAlign.left))
-				.addColumn(TablePagerColumn.OPE().setWidth(130));
+				.addColumn(TablePagerColumn.OPE().setWidth(80));
 
 		// delete
 		addDeleteAjaxRequest(pp, "VoteItemListForm_delete").setHandleMethod("doItemDelete");
@@ -55,12 +61,26 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 		addComponentBean(pp, "VoteItemListForm_editWin", WindowBean.class)
 				.setContentRef("VoteItemListForm_editPage").setTitle($m("VoteForm.9")).setWidth(480)
 				.setHeight(280);
+
+		// exchange
+		addAjaxRequest(pp, "VoteItemListForm_exchange").setHandleMethod("doExchange");
 	}
 
 	public IForward doItemDelete(final ComponentParameter cp) {
 		final Object[] ids = StringUtils.split(cp.getParameter("id"));
 		if (ids != null) {
 			context.getVoteItemService().delete(ids);
+		}
+		return new JavascriptForward("$Actions['VoteItemListForm_tbl']();");
+	}
+
+	public IForward doExchange(final ComponentParameter cp) {
+		final IVoteItemService service = context.getVoteItemService();
+		final VoteItem item = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID));
+		final VoteItem item2 = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID2));
+		if (item != null && item2 != null) {
+			service.exchange(item, item2,
+					Convert.toBool(cp.getParameter(TablePagerUtils.PARAM_MOVE_UP)));
 		}
 		return new JavascriptForward("$Actions['VoteItemListForm_tbl']();");
 	}
@@ -77,8 +97,12 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 						.setOnclick("$Actions['VoteItemListForm_tbl'].add_row();"),
 				SpanElement.SPACE,
 				LinkButton.deleteBtn().setOnclick(
-						"$Actions['VoteItemListForm_tbl'].doAct('VoteItemListForm_delete');"),
-				SpanElement.SPACE, LinkButton.closeBtn());
+						"$Actions['VoteItemListForm_tbl'].doAct('VoteItemListForm_delete');"));
+	}
+
+	@Override
+	public ElementList getRightElements(final PageParameter pp) {
+		return ElementList.of(LinkButton.closeBtn());
 	}
 
 	private static VoteGroup getVoteGroup(final PageParameter pp) {
@@ -99,9 +123,17 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 					"$Actions['VoteItemListForm_delete']('id=" + vi.getId() + "');");
 		}
 
+		protected MenuItem getDeleteMenuItem() {
+			return MenuItem.itemDelete().setOnclick_act("VoteItemListForm_delete", "id");
+		}
+
 		protected ButtonElement getEditButton(final VoteItem vi) {
 			return ButtonElement.editBtn().setOnclick(
 					"$Actions['VoteItemListForm_editWin']('itemId=" + vi.getId() + "');");
+		}
+
+		protected String getExchangeAction() {
+			return "VoteItemListForm_exchange";
 		}
 
 		protected VoteItem createVoteItem(final ComponentParameter cp) {
@@ -131,14 +163,44 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 			return super.doRowSave(cp, insertRows, updateRows);
 		}
 
+		private final MenuItems CONTEXT_MENUS = MenuItems
+				.of()
+				.append(getDeleteMenuItem())
+				.append(MenuItem.sep())
+				.append(
+						MenuItem
+								.of($m("Menu.move"))
+								.addChild(
+										MenuItem.of($m("Menu.up"), MenuItem.ICON_UP,
+												"$pager_action(item).move(true, '" + getExchangeAction()
+														+ "');"))
+								.addChild(
+										MenuItem.of($m("Menu.up2"), MenuItem.ICON_UP2,
+												"$pager_action(item).move2(true, '" + getExchangeAction()
+														+ "');"))
+								.addChild(
+										MenuItem.of($m("Menu.down"), MenuItem.ICON_DOWN,
+												"$pager_action(item).move(false, '" + getExchangeAction()
+														+ "');"))
+								.addChild(
+										MenuItem.of($m("Menu.down2"), MenuItem.ICON_DOWN2,
+												"$pager_action(item).move2(false, '" + getExchangeAction()
+														+ "');")));
+
+		@Override
+		public MenuItems getContextMenu(final ComponentParameter cp, final MenuBean menuBean,
+				final MenuItem menuItem) {
+			return menuItem == null ? CONTEXT_MENUS : null;
+		}
+
 		@Override
 		protected Map<String, Object> getRowData(final ComponentParameter cp, final Object dataObject) {
 			final VoteItem vi = (VoteItem) dataObject;
 			final KVMap kv = new KVMap();
 			kv.put("text", vi.getText());
 			final StringBuilder sb = new StringBuilder();
-			sb.append(getDeleteButton(vi)).append(SpanElement.SPACE);
 			sb.append(getEditButton(vi));
+			sb.append(SpanElement.SPACE).append(AbstractTablePagerSchema.IMG_DOWNMENU);
 			kv.add(TablePagerColumn.OPE, sb.toString());
 			return kv;
 		}
