@@ -41,7 +41,7 @@ public class VoteItemEditForm extends FormTableRowTemplatePage implements IVoteC
 	}
 
 	@Override
-	public JavascriptForward onSave(final ComponentParameter cp) {
+	public JavascriptForward onSave(final ComponentParameter cp) throws Exception {
 		final VoteItem vi = getVoteItem(cp);
 		final JavascriptForward js = super.onSave(cp);
 		if (vi != null) {

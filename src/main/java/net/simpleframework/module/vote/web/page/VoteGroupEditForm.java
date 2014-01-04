@@ -34,7 +34,7 @@ public class VoteGroupEditForm extends FormTableRowTemplatePage implements IVote
 	}
 
 	@Override
-	public JavascriptForward onSave(final ComponentParameter cp) {
+	public JavascriptForward onSave(final ComponentParameter cp) throws Exception {
 		final VoteGroup vg = getVoteGroup(cp);
 		if (vg != null) {
 			vg.setText(cp.getParameter("vg_text"));
