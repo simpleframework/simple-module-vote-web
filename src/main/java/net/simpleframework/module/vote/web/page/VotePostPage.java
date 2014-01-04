@@ -43,21 +43,10 @@ public class VotePostPage extends AbstractTemplatePage implements IVoteContextAw
 	protected void onForward(final PageParameter pp) {
 		super.onForward(pp);
 
-		addAjaxRequest(pp, "VotePostPage_post").setHandleMethod("doPost");
-	}
-
-	@Override
-	protected void addImportCSS(final PageParameter pp) {
-		super.addImportCSS(pp);
-
 		pp.addImportCSS(VotePostPage.class, "/vote.css");
-	}
-
-	@Override
-	protected void addImportJavascript(final PageParameter pp) {
-		super.addImportJavascript(pp);
-
 		pp.addImportJavascript(VotePostPage.class, "/js/vote.js");
+
+		addAjaxRequest(pp, "VotePostPage_post").setHandleMethod("doPost");
 	}
 
 	@Transaction(context = IVoteContext.class)

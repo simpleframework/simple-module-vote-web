@@ -26,8 +26,8 @@ import net.simpleframework.mvc.template.AbstractTemplatePage;
 public class MyVoteSelectPage extends AbstractTemplatePage implements IVoteContextAware {
 
 	@Override
-	protected void addComponents(final PageParameter pp) {
-		super.addComponents(pp);
+	protected void onForward(final PageParameter pp) {
+		super.onForward(pp);
 
 		final TablePagerBean tablePager = (TablePagerBean) addComponentBean(pp,
 				"MyVoteSelectPage_list", TablePagerBean.class).setContainerId(hashId).setHandleClass(

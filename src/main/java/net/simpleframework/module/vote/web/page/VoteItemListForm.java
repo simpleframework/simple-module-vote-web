@@ -43,8 +43,8 @@ import net.simpleframework.mvc.template.lets.OneTableTemplatePage;
 public class VoteItemListForm extends OneTableTemplatePage implements IVoteContextAware {
 
 	@Override
-	protected void addComponents(final PageParameter pp) {
-		super.addComponents(pp);
+	protected void onForward(final PageParameter pp) {
+		super.onForward(pp);
 
 		final TablePagerBean tablePager = (TablePagerBean) addTablePagerBean(pp,
 				"VoteItemListForm_tbl", VoteItemList.class).setEditable(true).setShowFilterBar(false)

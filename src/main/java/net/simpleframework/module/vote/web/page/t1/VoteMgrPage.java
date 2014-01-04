@@ -37,8 +37,10 @@ import net.simpleframework.mvc.template.t1.T1ResizedTemplatePage;
 public class VoteMgrPage extends T1ResizedTemplatePage implements IVoteContextAware {
 
 	@Override
-	protected void addComponents(final PageParameter pp) {
-		super.addComponents(pp);
+	protected void onForward(final PageParameter pp) {
+		super.onForward(pp);
+
+		pp.addImportCSS(VoteForm.class, "/vote.css");
 
 		final IWebVotePlugin vMark = getVoteMark(pp);
 		vMark.addVoteComponent_addBtn(pp);
@@ -48,13 +50,6 @@ public class VoteMgrPage extends T1ResizedTemplatePage implements IVoteContextAw
 	protected void addVoteTbl(final PageParameter pp, final IWebVotePlugin vMark) {
 		vMark.addVoteComponent_Tbl(pp).setPagerBarLayout(EPagerBarLayout.bottom)
 				.setContainerId("list_" + hashId).setHandleClass(MgrVoteListHandler.class);
-	}
-
-	@Override
-	protected void addImportCSS(final PageParameter pp) {
-		super.addImportCSS(pp);
-
-		pp.addImportCSS(VoteForm.class, "/vote.css");
 	}
 
 	protected static IWebVotePlugin getVoteMark(final PageParameter pp) {
