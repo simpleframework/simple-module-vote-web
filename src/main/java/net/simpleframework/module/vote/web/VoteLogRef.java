@@ -1,6 +1,6 @@
 package net.simpleframework.module.vote.web;
 
-import net.simpleframework.ado.bean.IIdBeanAware;
+import net.simpleframework.ctx.service.ado.db.IDbBeanService;
 import net.simpleframework.module.log.LogRef;
 import net.simpleframework.module.log.web.page.EntityUpdateLogPage;
 import net.simpleframework.module.vote.IVoteContextAware;
@@ -27,8 +27,8 @@ public class VoteLogRef extends LogRef {
 	public static class VoteEditLogPage extends EntityUpdateLogPage implements IVoteContextAware {
 
 		@Override
-		protected IIdBeanAware getBean(final PageParameter pp) {
-			return context.getVoteService().getBean(pp.getParameter(getBeanIdParameter()));
+		protected IDbBeanService<?> getBeanService() {
+			return context.getVoteService();
 		}
 	}
 }
