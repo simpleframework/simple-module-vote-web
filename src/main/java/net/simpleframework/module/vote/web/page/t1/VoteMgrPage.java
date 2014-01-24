@@ -62,7 +62,7 @@ public class VoteMgrPage extends T1ResizedTemplatePage implements IVoteContextAw
 	}
 
 	@Override
-	protected TabButtons getTabButtons(final PageParameter pp) {
+	public TabButtons getTabButtons(final PageParameter pp) {
 		final TabButtons tabs = TabButtons.of(new TabButton($m("VoteContext.2"),
 				url(MyVotePage.class)), new TabButton($m("VoteContext.1"), url(VoteMgrPage.class)));
 		return tabs;
