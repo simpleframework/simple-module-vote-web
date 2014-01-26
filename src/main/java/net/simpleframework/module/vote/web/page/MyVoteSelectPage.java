@@ -8,6 +8,7 @@ import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.module.vote.IVoteContextAware;
 import net.simpleframework.module.vote.web.IVoteWebContext;
+import net.simpleframework.module.vote.web.page.t1.VoteMgrPage;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.LinkButton;
@@ -42,7 +43,8 @@ public class MyVoteSelectPage extends AbstractTemplatePage implements IVoteConte
 
 	public ElementList getButtons(final PageParameter pp) {
 		return ElementList.of(new LinkButton($m("MyVoteSelectPage.0")).setOnclick("$Actions.loc('"
-				+ ((IVoteWebContext) context).getUrlsFactory().getVoteMgrUrl() + "', true);"));
+				+ ((IVoteWebContext) context).getUrlsFactory().getUrl(pp, VoteMgrPage.class)
+				+ "', true);"));
 	}
 
 	public static class MyVoteList extends AbstractDbTablePagerHandler {

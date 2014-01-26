@@ -2,7 +2,6 @@ package net.simpleframework.module.vote.web;
 
 import net.simpleframework.module.vote.web.page.t1.MyVotePage;
 import net.simpleframework.module.vote.web.page.t1.VoteMgrPage;
-import net.simpleframework.mvc.AbstractMVCPage;
 import net.simpleframework.mvc.common.UrlsCache;
 
 /**
@@ -13,15 +12,9 @@ import net.simpleframework.mvc.common.UrlsCache;
  */
 public class VoteUrlsFactory extends UrlsCache {
 
-	public String getVoteMgrUrl(final String query) {
-		return AbstractMVCPage.url(VoteMgrPage.class, query);
-	}
+	public VoteUrlsFactory() {
+		put(VoteMgrPage.class);
 
-	public String getVoteMgrUrl() {
-		return getVoteMgrUrl(null);
-	}
-
-	public String getMyVoteUrl(final int mark) {
-		return AbstractMVCPage.url(MyVotePage.class, mark != 0 ? "voteMark=" + mark : null);
+		put(MyVotePage.class);
 	}
 }

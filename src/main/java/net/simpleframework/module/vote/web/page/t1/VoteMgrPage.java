@@ -78,7 +78,7 @@ public class VoteMgrPage extends T1ResizedTemplatePage implements IVoteContextAw
 	public ElementList getRightElements(final PageParameter pp) {
 		final VoteUrlsFactory uFactory = ((IVoteWebContext) context).getUrlsFactory();
 		final InputElement select = InputElement.select().setOnchange(
-				"$Actions.loc('" + uFactory.getVoteMgrUrl() + "?voteMark=' + $F(this));");
+				"$Actions.loc('" + uFactory.getUrl(pp, VoteMgrPage.class) + "?voteMark=' + $F(this));");
 		for (final IModulePlugin mark : context.getPluginRegistry().allPlugin()) {
 			final int iMark = mark.getMark();
 			select.addElements(new Option(iMark, mark.getText()).setSelected(iMark == pp
