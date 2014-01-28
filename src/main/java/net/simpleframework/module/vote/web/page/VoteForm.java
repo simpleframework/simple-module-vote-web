@@ -33,7 +33,6 @@ import net.simpleframework.mvc.common.element.TableRows;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.base.validation.EValidatorMethod;
 import net.simpleframework.mvc.component.base.validation.Validator;
-import net.simpleframework.mvc.component.ui.calendar.CalendarBean;
 import net.simpleframework.mvc.component.ui.menu.MenuItem;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
@@ -56,7 +55,7 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 		addFormValidationBean(pp).addValidators(new Validator(EValidatorMethod.required, "#ve_text"),
 				new Validator(EValidatorMethod.digits, "#ve_multiple"));
 
-		addComponentBean(pp, "VoteForm_cal", CalendarBean.class);
+		addCalendarBean(pp, "VoteForm_cal");
 
 		addVoteComponents(pp);
 	}
