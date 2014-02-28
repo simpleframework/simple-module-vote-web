@@ -46,7 +46,7 @@ public class VotePostPage extends AbstractTemplatePage implements IVoteContextAw
 		pp.addImportCSS(VotePostPage.class, "/vote.css");
 		pp.addImportJavascript(VotePostPage.class, "/js/vote.js");
 
-		addAjaxRequest(pp, "VotePostPage_post").setHandleMethod("doPost");
+		addAjaxRequest(pp, "VotePostPage_post").setHandlerMethod("doPost");
 	}
 
 	@Transaction(context = IVoteContext.class)

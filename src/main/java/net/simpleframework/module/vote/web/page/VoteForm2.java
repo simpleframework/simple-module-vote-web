@@ -48,7 +48,7 @@ public class VoteForm2 extends VoteForm {
 				.addColumn(TablePagerColumn.OPE().setWidth(160));
 
 		// group delete
-		addDeleteAjaxRequest(pp, "VoteForm_groupDelete").setHandleMethod("doGroupDelete");
+		addDeleteAjaxRequest(pp, "VoteForm_groupDelete").setHandlerMethod("doGroupDelete");
 
 		// group edit
 		addAjaxRequest(pp, "VoteForm_groupEditPage", VoteGroupEditForm.class);

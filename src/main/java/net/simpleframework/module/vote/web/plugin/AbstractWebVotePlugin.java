@@ -65,12 +65,12 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 		}
 
 		// move
-		pp.addComponentBean("AbstractWebVotePlugin_move", AjaxRequestBean.class).setHandleClass(
+		pp.addComponentBean("AbstractWebVotePlugin_move", AjaxRequestBean.class).setHandlerClass(
 				MoveAction.class);
 
 		// delete
 		pp.addComponentBean("AbstractWebVotePlugin_delete", AjaxRequestBean.class)
-				.setConfirmMessage($m("Confirm.Delete")).setHandleClass(DeleteAction.class);
+				.setConfirmMessage($m("Confirm.Delete")).setHandlerClass(DeleteAction.class);
 
 		// preview
 		pp.addComponentBean("AbstractWebVotePlugin_previewPage", AjaxRequestBean.class)
@@ -99,7 +99,7 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 	@Override
 	public void addVoteComponent_addBtn(final PageParameter pp) {
 		// 添加投票
-		pp.addComponentBean("AbstractWebVotePlugin_addForm", AjaxRequestBean.class).setHandleClass(
+		pp.addComponentBean("AbstractWebVotePlugin_addForm", AjaxRequestBean.class).setHandlerClass(
 				VoteFormAjaxRequest.class);
 		pp.addComponentBean("AbstractWebVotePlugin_addWin", WindowBean.class)
 				.setContentRef("AbstractWebVotePlugin_addForm").setTitle($m("AbstractWebVotePlugin.0"))

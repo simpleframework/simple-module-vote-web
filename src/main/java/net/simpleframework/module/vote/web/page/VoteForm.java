@@ -68,7 +68,7 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 				.addColumn(TablePagerColumn.OPE().setWidth(80));
 
 		// delete
-		addDeleteAjaxRequest(pp, "VoteForm_itemDelete").setHandleMethod("doItemDelete");
+		addDeleteAjaxRequest(pp, "VoteForm_itemDelete").setHandlerMethod("doItemDelete");
 
 		// edit
 		addAjaxRequest(pp, "VoteForm_itemEditPage", VoteItemEditForm.class);
@@ -77,7 +77,7 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 				.setHeight(280);
 
 		// exchange
-		addAjaxRequest(pp, "VoteForm_exchange").setHandleMethod("doExchange");
+		addAjaxRequest(pp, "VoteForm_exchange").setHandlerMethod("doExchange");
 	}
 
 	protected static Vote getVote(final PageParameter pp) {

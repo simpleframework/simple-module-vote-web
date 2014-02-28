@@ -54,7 +54,7 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 				.addColumn(TablePagerColumn.OPE().setWidth(80));
 
 		// delete
-		addDeleteAjaxRequest(pp, "VoteItemListForm_delete").setHandleMethod("doItemDelete");
+		addDeleteAjaxRequest(pp, "VoteItemListForm_delete").setHandlerMethod("doItemDelete");
 
 		// edit
 		addAjaxRequest(pp, "VoteItemListForm_editPage", VoteItemEditForm.class);
@@ -63,7 +63,7 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 				.setHeight(280);
 
 		// exchange
-		addAjaxRequest(pp, "VoteItemListForm_exchange").setHandleMethod("doExchange");
+		addAjaxRequest(pp, "VoteItemListForm_exchange").setHandlerMethod("doExchange");
 	}
 
 	public IForward doItemDelete(final ComponentParameter cp) {

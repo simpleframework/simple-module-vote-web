@@ -49,7 +49,7 @@ public class VoteMgrPage extends T1ResizedTemplatePage implements IVoteContextAw
 
 	protected void addVoteTbl(final PageParameter pp, final IWebVotePlugin vMark) {
 		vMark.addVoteComponent_Tbl(pp).setPagerBarLayout(EPagerBarLayout.bottom)
-				.setContainerId("list_" + hashId).setHandleClass(MgrVoteListHandler.class);
+				.setContainerId("list_" + hashId).setHandlerClass(MgrVoteListHandler.class);
 	}
 
 	protected static IWebVotePlugin getVoteMark(final PageParameter pp) {

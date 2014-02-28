@@ -24,7 +24,7 @@ public class MyVotePage extends VoteMgrPage {
 	protected void addVoteTbl(final PageParameter pp, final IWebVotePlugin vMark) {
 		final TablePagerBean tablePager = (TablePagerBean) vMark.addVoteComponent_Tbl(pp)
 				.setPagerBarLayout(EPagerBarLayout.bottom).setContainerId("list_" + hashId)
-				.setHandleClass(MyVoteListHandler.class);
+				.setHandlerClass(MyVoteListHandler.class);
 		final TablePagerColumn col = tablePager.getColumns().get("userId");
 		if (col != null) {
 			col.setVisible(false);
