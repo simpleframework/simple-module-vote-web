@@ -25,6 +25,7 @@ import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
 import net.simpleframework.mvc.component.ui.pager.db.GroupDbTablePagerHandler;
+import net.simpleframework.mvc.template.TemplateUtils;
 import net.simpleframework.mvc.template.lets.OneTableTemplatePage;
 
 /**
@@ -103,7 +104,7 @@ public class VoteLogPage extends OneTableTemplatePage implements IVoteContextAwa
 			kv.put("itemId", context.getVoteItemService().getBean(log.getItemId()));
 			kv.put("createDate", log.getCreateDate());
 			final ID userId = log.getUserId();
-			kv.put("userId", toIconUser(cp, userId == null ? $m("VoteLogPage.4") : userId));
+			kv.put("userId", TemplateUtils.toIconUser(cp, userId, $m("VoteLogPage.4")));
 			kv.put("ip", log.getIp());
 			final StringBuilder sb = new StringBuilder();
 			sb.append(ButtonElement.deleteBtn().setOnclick(

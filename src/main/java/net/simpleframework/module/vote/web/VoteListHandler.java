@@ -20,7 +20,7 @@ import net.simpleframework.mvc.component.ui.menu.MenuItems;
 import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerSchema;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
 import net.simpleframework.mvc.component.ui.pager.db.AbstractDbTablePagerHandler;
-import net.simpleframework.mvc.template.AbstractTemplatePage;
+import net.simpleframework.mvc.template.TemplateUtils;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -79,7 +79,7 @@ public abstract class VoteListHandler extends AbstractDbTablePagerHandler {
 		final ID id = vote.getId();
 		kv.put("text", new LinkElement(vote.getText())
 				.setOnclick("$Actions['AbstractWebVotePlugin_addWin']('voteId=" + id + "');"));
-		kv.put("userId", AbstractTemplatePage.toIconUser(cp, vote.getUserId()));
+		kv.put("userId", TemplateUtils.toIconUser(cp, vote.getUserId()));
 		kv.put("anonymous", vote.isAnonymous() ? $m("Yes") : $m("No"));
 		kv.put("createDate", vote.getCreateDate());
 		kv.put("expiredDate", Convert.toDateString(vote.getExpiredDate(), "yyyy-MM-dd"));
