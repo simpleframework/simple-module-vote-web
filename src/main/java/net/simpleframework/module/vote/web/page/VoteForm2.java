@@ -141,7 +141,7 @@ public class VoteForm2 extends VoteForm {
 					.setOnclick("$Actions['VoteForm_groupEditWin']('groupId=" + vg.getId() + "');"));
 			final int c = context.getVoteItemService().query(vg).getCount();
 			if (c > 0) {
-				sb.append(new SupElement(c).setStyle("margin-left: 4px;"));
+				sb.append(new SupElement(c).addStyle("margin-left: 4px;"));
 			}
 			kv.put("text", sb.toString());
 			kv.put("multiple", vg.getMultiple());
