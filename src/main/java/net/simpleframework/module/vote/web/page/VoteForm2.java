@@ -66,9 +66,7 @@ public class VoteForm2 extends VoteForm {
 	@Transaction(context = IVoteContext.class)
 	public IForward doGroupDelete(final ComponentParameter cp) {
 		final Object[] ids = StringUtils.split(cp.getParameter("id"));
-		if (ids != null) {
-			context.getVoteGroupService().delete(ids);
-		}
+		context.getVoteGroupService().delete(ids);
 		return new JavascriptForward("$Actions['VoteForm_tbl']();");
 	}
 

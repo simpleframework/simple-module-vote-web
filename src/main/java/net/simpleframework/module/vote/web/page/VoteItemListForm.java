@@ -68,9 +68,7 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 
 	public IForward doItemDelete(final ComponentParameter cp) {
 		final Object[] ids = StringUtils.split(cp.getParameter("id"));
-		if (ids != null) {
-			context.getVoteItemService().delete(ids);
-		}
+		context.getVoteItemService().delete(ids);
 		return new JavascriptForward("$Actions['VoteItemListForm_tbl']();");
 	}
 

@@ -86,9 +86,7 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 
 	public IForward doItemDelete(final ComponentParameter cp) {
 		final Object[] ids = StringUtils.split(cp.getParameter("id"));
-		if (ids != null) {
-			context.getVoteItemService().delete(ids);
-		}
+		context.getVoteItemService().delete(ids);
 		return new JavascriptForward("$Actions['VoteForm_tbl']();");
 	}
 

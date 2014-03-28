@@ -61,9 +61,7 @@ public class VoteLogPage extends OneTableTemplatePage implements IVoteContextAwa
 
 	public IForward doDelete(final ComponentParameter cp) {
 		final Object[] ids = StringUtils.split(cp.getParameter("id"));
-		if (ids != null) {
-			context.getVoteLogService().delete(ids);
-		}
+		context.getVoteLogService().delete(ids);
 		return new JavascriptForward("$Actions['VoteLogPage_table']();");
 	}
 

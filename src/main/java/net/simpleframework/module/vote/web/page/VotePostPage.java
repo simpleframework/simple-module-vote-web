@@ -51,12 +51,9 @@ public class VotePostPage extends AbstractTemplatePage implements IVoteContextAw
 
 	@Transaction(context = IVoteContext.class)
 	public IForward doPost(final ComponentParameter cp) {
-		final String[] params = StringUtils.split(cp.getParameter("vi_name"), ";");
 		String[] viArr = null;
-		if (params != null) {
-			for (final String p : params) {
-				viArr = ArrayUtils.add(viArr, cp.getParameterValues(p));
-			}
+		for (final String p : StringUtils.split(cp.getParameter("vi_name"), ";")) {
+			viArr = ArrayUtils.add(viArr, cp.getParameterValues(p));
 		}
 		if (viArr == null || viArr.length == 0) {
 			throw VoteException.of($m("VotePostPage.2"));

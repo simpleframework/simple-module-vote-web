@@ -133,9 +133,7 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 		@Override
 		public IForward ajaxProcess(final ComponentParameter cp) {
 			final Object[] ids = StringUtils.split(cp.getParameter("id"));
-			if (ids != null) {
-				context.getVoteService().delete(ids);
-			}
+			context.getVoteService().delete(ids);
 			return new JavascriptForward("$Actions['AbstractWebVotePlugin_list']();");
 		}
 	}
