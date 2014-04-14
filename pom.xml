@@ -45,13 +45,7 @@
       <artifactId>simple-module-vote-service</artifactId>
       <version>4.0-SNAPSHOT</version>
     </dependency>
-    
-    <dependency>
-      <groupId>net.simpleframework</groupId>
-      <artifactId>simple-mvc-template</artifactId>
-      <version>4.0-SNAPSHOT</version>
-    </dependency>
-    
+        
     <dependency>
       <groupId>net.simpleframework</groupId>
       <artifactId>simple-module-log-web</artifactId>
