@@ -53,7 +53,8 @@ public class VoteMgrPage extends T1ResizedTemplatePage implements IVoteContextAw
 	}
 
 	protected static IWebVotePlugin getVoteMark(final PageParameter pp) {
-		return (IWebVotePlugin) voteContext.getPluginRegistry().getPlugin(pp.getIntParameter("voteMark"));
+		return (IWebVotePlugin) voteContext.getPluginRegistry().getPlugin(
+				pp.getIntParameter("voteMark"));
 	}
 
 	@Override
