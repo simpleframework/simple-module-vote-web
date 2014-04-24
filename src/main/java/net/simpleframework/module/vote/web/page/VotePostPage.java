@@ -60,14 +60,14 @@ public class VotePostPage extends AbstractTemplatePage implements IVoteContextAw
 		}
 		final Vote vote = getVote(cp);
 		final Date now = new Date();
-		final IVoteItemService itemService = context.getVoteItemService();
+		final IVoteItemService itemService = voteContext.getVoteItemService();
 		for (final String vi : viArr) {
 			final VoteItem item = itemService.getBean(vi);
 			if (item == null) {
 				continue;
 			}
 			if (vote.isLogging()) {
-				final IVoteLogService logService = context.getVoteLogService();
+				final IVoteLogService logService = voteContext.getVoteLogService();
 				final VoteLog log = logService.createBean();
 				log.setVoteId(item.getVoteId());
 				log.setItemId(item.getId());
@@ -86,13 +86,13 @@ public class VotePostPage extends AbstractTemplatePage implements IVoteContextAw
 	}
 
 	private static Vote getVote(final PageParameter pp) {
-		return getCacheBean(pp, context.getVoteService(), "voteId");
+		return getCacheBean(pp, voteContext.getVoteService(), "voteId");
 	}
 
 	public String toVoteHtml(final PageParameter pp, final boolean result) {
 		final StringBuilder sb = new StringBuilder();
 		final Vote vote = getVote(pp);
-		final IVoteItemService viService = context.getVoteItemService();
+		final IVoteItemService viService = voteContext.getVoteItemService();
 
 		sb.append("<div class='vote_title'>");
 		sb.append(" <div class='l1'>").append(vote.getText()).append("</div>");
@@ -108,7 +108,7 @@ public class VotePostPage extends AbstractTemplatePage implements IVoteContextAw
 		if (vote.isGroups()) {
 			viName = "";
 			int i = 0;
-			final IDataQuery<VoteGroup> dq = context.getVoteGroupService().query(vote);
+			final IDataQuery<VoteGroup> dq = voteContext.getVoteGroupService().query(vote);
 			for (VoteGroup vg; (vg = dq.next()) != null;) {
 				sb.append("<div class='vgc'>");
 				sb.append("<div class='vg'>").append(vg.getText()).append("</div>");
@@ -185,11 +185,11 @@ public class VotePostPage extends AbstractTemplatePage implements IVoteContextAw
 		boolean result = true;
 		if (vote.isLogging()) {
 			if (pp.isLogin()) {
-				result = context.getVoteLogService().queryLog(vote, pp.getLoginId()).getCount() > 0;
+				result = voteContext.getVoteLogService().queryLog(vote, pp.getLoginId()).getCount() > 0;
 			} else {
 				if (vote.isAnonymous()) {
 					// 找到相同ip且时间不超过30分
-					result = context.getVoteLogService().query(vote, pp.getRemoteAddr(), 60 * 30)
+					result = voteContext.getVoteLogService().query(vote, pp.getRemoteAddr(), 60 * 30)
 							.getCount() > 0;
 				}
 			}

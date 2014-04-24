@@ -61,7 +61,7 @@ public class VoteLogPage extends OneTableTemplatePage implements IVoteContextAwa
 
 	public IForward doDelete(final ComponentParameter cp) {
 		final Object[] ids = StringUtils.split(cp.getParameter("id"));
-		context.getVoteLogService().delete(ids);
+		voteContext.getVoteLogService().delete(ids);
 		return new JavascriptForward("$Actions['VoteLogPage_table']();");
 	}
 
@@ -84,7 +84,7 @@ public class VoteLogPage extends OneTableTemplatePage implements IVoteContextAwa
 	}
 
 	private static Vote getVote(final PageParameter pp) {
-		return getCacheBean(pp, context.getVoteService(), "voteId");
+		return getCacheBean(pp, voteContext.getVoteService(), "voteId");
 	}
 
 	public static class VoteLogTable extends GroupDbTablePagerHandler {
@@ -92,14 +92,14 @@ public class VoteLogPage extends OneTableTemplatePage implements IVoteContextAwa
 		public IDataQuery<?> createDataObjectQuery(final ComponentParameter cp) {
 			final Vote vote = getVote(cp);
 			cp.addFormParameter("voteId", vote.getId());
-			return context.getVoteLogService().query(vote);
+			return voteContext.getVoteLogService().query(vote);
 		}
 
 		@Override
 		protected Map<String, Object> getRowData(final ComponentParameter cp, final Object dataObject) {
 			final VoteLog log = (VoteLog) dataObject;
 			final KVMap kv = new KVMap();
-			kv.put("itemId", context.getVoteItemService().getBean(log.getItemId()));
+			kv.put("itemId", voteContext.getVoteItemService().getBean(log.getItemId()));
 			kv.put("createDate", log.getCreateDate());
 			final ID userId = log.getUserId();
 			kv.put("userId", TemplateUtils.toIconUser(cp, userId, $m("VoteLogPage.4")));

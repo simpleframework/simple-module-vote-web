@@ -81,17 +81,17 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 	}
 
 	protected static Vote getVote(final PageParameter pp) {
-		return getCacheBean(pp, context.getVoteService(), "voteId");
+		return getCacheBean(pp, voteContext.getVoteService(), "voteId");
 	}
 
 	public IForward doItemDelete(final ComponentParameter cp) {
 		final Object[] ids = StringUtils.split(cp.getParameter("id"));
-		context.getVoteItemService().delete(ids);
+		voteContext.getVoteItemService().delete(ids);
 		return new JavascriptForward("$Actions['VoteForm_tbl']();");
 	}
 
 	public IForward doExchange(final ComponentParameter cp) {
-		final IVoteItemService service = context.getVoteItemService();
+		final IVoteItemService service = voteContext.getVoteItemService();
 		final VoteItem item = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID));
 		final VoteItem item2 = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID2));
 		if (item != null && item2 != null) {
@@ -110,7 +110,7 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 		}
 
 		Vote vote = getVote(cp);
-		final IVoteService voteService = context.getVoteService();
+		final IVoteService voteService = voteContext.getVoteService();
 		final boolean insert = vote == null;
 		if (vote == null) {
 			vote = voteService.createBean();
@@ -221,7 +221,7 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 		public IDataQuery<?> createDataObjectQuery(final ComponentParameter cp) {
 			final Vote vote = getVote(cp);
 			cp.addFormParameter("voteId", vote.getId());
-			return context.getVoteItemService().query(vote);
+			return voteContext.getVoteItemService().query(vote);
 		}
 
 		@Override

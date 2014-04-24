@@ -25,7 +25,7 @@ import net.simpleframework.mvc.template.lets.FormTableRowTemplatePage;
 public class VoteItemEditForm extends FormTableRowTemplatePage implements IVoteContextAware {
 
 	private static VoteItem getVoteItem(final PageParameter pp) {
-		return getCacheBean(pp, context.getVoteItemService(), "itemId");
+		return getCacheBean(pp, voteContext.getVoteItemService(), "itemId");
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class VoteItemEditForm extends FormTableRowTemplatePage implements IVoteC
 		if (vi != null) {
 			vi.setText(cp.getParameter("vi_text"));
 			vi.setDescription(cp.getParameter("vi_description"));
-			context.getVoteItemService().update(vi);
+			voteContext.getVoteItemService().update(vi);
 			if (vi.getGroupId() == null) {
 				js.append("$Actions['VoteForm_tbl']();");
 			} else {

@@ -66,7 +66,7 @@ public class VoteForm2 extends VoteForm {
 	@Transaction(context = IVoteContext.class)
 	public IForward doGroupDelete(final ComponentParameter cp) {
 		final Object[] ids = StringUtils.split(cp.getParameter("id"));
-		context.getVoteGroupService().delete(ids);
+		voteContext.getVoteGroupService().delete(ids);
 		return new JavascriptForward("$Actions['VoteForm_tbl']();");
 	}
 
@@ -84,7 +84,7 @@ public class VoteForm2 extends VoteForm {
 		public IDataQuery<?> createDataObjectQuery(final ComponentParameter cp) {
 			final Vote vote = getVote(cp);
 			cp.addFormParameter("voteId", vote.getId());
-			return context.getVoteGroupService().query(vote);
+			return voteContext.getVoteGroupService().query(vote);
 		}
 
 		@Override
@@ -92,7 +92,7 @@ public class VoteForm2 extends VoteForm {
 		public JavascriptForward doRowSave(final ComponentParameter cp,
 				final Map<String, Map<String, Object>> insertRows,
 				final Map<String, Map<String, Object>> updateRows) {
-			final IVoteGroupService vgService = context.getVoteGroupService();
+			final IVoteGroupService vgService = voteContext.getVoteGroupService();
 			final Vote vote = getVote(cp);
 			for (final Map.Entry<String, Map<String, Object>> e : insertRows.entrySet()) {
 				final Map<String, Object> row = e.getValue();
@@ -127,7 +127,7 @@ public class VoteForm2 extends VoteForm {
 
 		@Override
 		public Object getRowBeanById(final ComponentParameter cp, final Object id) {
-			return context.getVoteGroupService().getBean(id);
+			return voteContext.getVoteGroupService().getBean(id);
 		}
 
 		@Override
@@ -137,7 +137,7 @@ public class VoteForm2 extends VoteForm {
 			final StringBuilder sb = new StringBuilder();
 			sb.append(new LinkElement(vg.getText())
 					.setOnclick("$Actions['VoteForm_groupEditWin']('groupId=" + vg.getId() + "');"));
-			final int c = context.getVoteItemService().query(vg).getCount();
+			final int c = voteContext.getVoteItemService().query(vg).getCount();
 			if (c > 0) {
 				sb.append(new SupElement(c).addStyle("margin-left: 4px;"));
 			}

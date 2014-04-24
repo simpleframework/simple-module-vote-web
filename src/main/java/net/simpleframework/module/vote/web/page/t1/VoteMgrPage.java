@@ -53,7 +53,7 @@ public class VoteMgrPage extends T1ResizedTemplatePage implements IVoteContextAw
 	}
 
 	protected static IWebVotePlugin getVoteMark(final PageParameter pp) {
-		return (IWebVotePlugin) context.getPluginRegistry().getPlugin(pp.getIntParameter("voteMark"));
+		return (IWebVotePlugin) voteContext.getPluginRegistry().getPlugin(pp.getIntParameter("voteMark"));
 	}
 
 	@Override
@@ -76,10 +76,10 @@ public class VoteMgrPage extends T1ResizedTemplatePage implements IVoteContextAw
 
 	@Override
 	public ElementList getRightElements(final PageParameter pp) {
-		final VoteUrlsFactory uFactory = ((IVoteWebContext) context).getUrlsFactory();
+		final VoteUrlsFactory uFactory = ((IVoteWebContext) voteContext).getUrlsFactory();
 		final InputElement select = InputElement.select().setOnchange(
 				"$Actions.loc('" + uFactory.getUrl(pp, VoteMgrPage.class) + "?voteMark=' + $F(this));");
-		for (final IModulePlugin mark : context.getPluginRegistry().allPlugin()) {
+		for (final IModulePlugin mark : voteContext.getPluginRegistry().allPlugin()) {
 			final int iMark = mark.getMark();
 			select.addElements(new Option(iMark, mark.getText()).setSelected(iMark == pp
 					.getIntParameter("voteMark")));

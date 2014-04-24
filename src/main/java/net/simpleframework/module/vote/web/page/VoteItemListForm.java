@@ -68,12 +68,12 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 
 	public IForward doItemDelete(final ComponentParameter cp) {
 		final Object[] ids = StringUtils.split(cp.getParameter("id"));
-		context.getVoteItemService().delete(ids);
+		voteContext.getVoteItemService().delete(ids);
 		return new JavascriptForward("$Actions['VoteItemListForm_tbl']();");
 	}
 
 	public IForward doExchange(final ComponentParameter cp) {
-		final IVoteItemService service = context.getVoteItemService();
+		final IVoteItemService service = voteContext.getVoteItemService();
 		final VoteItem item = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID));
 		final VoteItem item2 = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID2));
 		if (item != null && item2 != null) {
@@ -104,7 +104,7 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 	}
 
 	private static VoteGroup getVoteGroup(final PageParameter pp) {
-		return getCacheBean(pp, context.getVoteGroupService(), "groupId");
+		return getCacheBean(pp, voteContext.getVoteGroupService(), "groupId");
 	}
 
 	public static class VoteItemList extends AbstractDbTablePagerHandler {
@@ -113,7 +113,7 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 		public IDataQuery<?> createDataObjectQuery(final ComponentParameter cp) {
 			final VoteGroup vg = getVoteGroup(cp);
 			cp.addFormParameter("groupId", vg.getId());
-			return context.getVoteItemService().query(vg);
+			return voteContext.getVoteItemService().query(vg);
 		}
 
 		protected ButtonElement getDeleteButton(final VoteItem vi) {
@@ -147,7 +147,7 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 		public JavascriptForward doRowSave(final ComponentParameter cp,
 				final Map<String, Map<String, Object>> insertRows,
 				final Map<String, Map<String, Object>> updateRows) {
-			final IVoteItemService viService = context.getVoteItemService();
+			final IVoteItemService viService = voteContext.getVoteItemService();
 			for (final Map.Entry<String, Map<String, Object>> e : insertRows.entrySet()) {
 				final Map<String, Object> row = e.getValue();
 				final String text = (String) row.get("text");

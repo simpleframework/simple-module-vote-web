@@ -28,7 +28,7 @@ public class VoteLogRef extends LogRef {
 
 		@Override
 		protected IDbBeanService<?> getBeanService() {
-			return context.getVoteService();
+			return voteContext.getVoteService();
 		}
 	}
 }

@@ -62,7 +62,7 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 				.setContentRef("AbstractWebVotePlugin_logPage").setHeight(540).setWidth(864);
 
 		// edit log
-		final IModuleRef ref = ((IVoteWebContext) context).getLogRef();
+		final IModuleRef ref = ((IVoteWebContext) voteContext).getLogRef();
 		if (ref != null) {
 			((VoteLogRef) ref).addLogComponent(pp);
 		}
@@ -117,7 +117,7 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 		@Transaction(context = IVoteContext.class)
 		@Override
 		public IForward ajaxProcess(final ComponentParameter cp) {
-			final IVoteService service = context.getVoteService();
+			final IVoteService service = voteContext.getVoteService();
 			final Vote item = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID));
 			final Vote item2 = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID2));
 			if (item != null && item2 != null) {
@@ -133,7 +133,7 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 		@Override
 		public IForward ajaxProcess(final ComponentParameter cp) {
 			final Object[] ids = StringUtils.split(cp.getParameter("id"));
-			context.getVoteService().delete(ids);
+			voteContext.getVoteService().delete(ids);
 			return new JavascriptForward("$Actions['AbstractWebVotePlugin_list']();");
 		}
 	}
@@ -143,7 +143,7 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 
 		@Override
 		public IForward ajaxProcess(final ComponentParameter cp) {
-			final Vote vote = context.getVoteService().getBean(cp.getParameter("voteId"));
+			final Vote vote = voteContext.getVoteService().getBean(cp.getParameter("voteId"));
 			return new UrlForward(
 					AbstractMVCPage.url(vote != null && vote.isGroups() ? VoteForm2.class
 							: VoteForm.class));

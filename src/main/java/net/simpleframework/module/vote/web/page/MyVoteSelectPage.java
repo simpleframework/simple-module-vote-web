@@ -43,7 +43,7 @@ public class MyVoteSelectPage extends AbstractTemplatePage implements IVoteConte
 
 	public ElementList getButtons(final PageParameter pp) {
 		return ElementList.of(new LinkButton($m("MyVoteSelectPage.0")).setOnclick("$Actions.loc('"
-				+ ((IVoteWebContext) context).getUrlsFactory().getUrl(pp, VoteMgrPage.class)
+				+ ((IVoteWebContext) voteContext).getUrlsFactory().getUrl(pp, VoteMgrPage.class)
 				+ "', true);"));
 	}
 

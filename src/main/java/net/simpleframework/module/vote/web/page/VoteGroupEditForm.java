@@ -30,7 +30,7 @@ public class VoteGroupEditForm extends FormTableRowTemplatePage implements IVote
 	}
 
 	private static VoteGroup getVoteGroup(final PageParameter pp) {
-		return getCacheBean(pp, context.getVoteGroupService(), "groupId");
+		return getCacheBean(pp, voteContext.getVoteGroupService(), "groupId");
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class VoteGroupEditForm extends FormTableRowTemplatePage implements IVote
 			vg.setText(cp.getParameter("vg_text"));
 			vg.setMultiple(cp.getShortParameter("vg_multiple"));
 			vg.setDescription(cp.getParameter("vg_description"));
-			context.getVoteGroupService().update(vg);
+			voteContext.getVoteGroupService().update(vg);
 		}
 		return super.onSave(cp).append("$Actions['VoteForm_tbl']();");
 	}
