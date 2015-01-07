@@ -36,6 +36,6 @@ public class VoteWebContext extends VoteContext implements IVoteWebContext {
 		return ModuleFunctions.of(FUNC_VOTE_MGR);
 	}
 
-	public WebModuleFunction FUNC_VOTE_MGR = (WebModuleFunction) new WebModuleFunction(
+	public WebModuleFunction FUNC_VOTE_MGR = (WebModuleFunction) new WebModuleFunction(this,
 			VoteMgrPage.class).setName(MODULE_NAME + "-VoteMgrPage").setText($m("VoteContext.1"));
 }
