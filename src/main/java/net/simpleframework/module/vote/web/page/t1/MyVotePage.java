@@ -1,7 +1,7 @@
 package net.simpleframework.module.vote.web.page.t1;
 
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.ctx.permission.IPermissionConst;
+import net.simpleframework.ctx.permission.PermissionConst;
 import net.simpleframework.module.vote.web.VoteListHandler;
 import net.simpleframework.module.vote.web.plugin.IWebVotePlugin;
 import net.simpleframework.mvc.PageMapping;
@@ -33,7 +33,7 @@ public class MyVotePage extends VoteMgrPage {
 
 	@Override
 	public String getRole(final PageParameter pp) {
-		return IPermissionConst.ROLE_ALL_ACCOUNT;
+		return PermissionConst.ROLE_ALL_ACCOUNT;
 	}
 
 	public static class MyVoteListHandler extends VoteListHandler {
