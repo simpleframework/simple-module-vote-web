@@ -2,7 +2,6 @@ package net.simpleframework.module.vote.web;
 
 import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.ctx.IModuleRef;
-import net.simpleframework.ctx.Module;
 import net.simpleframework.ctx.ModuleFunctions;
 import net.simpleframework.module.vote.impl.VoteContext;
 import net.simpleframework.module.vote.web.page.t1.VoteMgrPage;
@@ -27,15 +26,8 @@ public class VoteWebContext extends VoteContext implements IVoteWebContext {
 	}
 
 	@Override
-	protected Module createModule() {
-		return super.createModule().setDefaultFunction(FUNC_VOTE_MGR);
-	}
-
-	@Override
 	protected ModuleFunctions getFunctions() {
-		return ModuleFunctions.of(FUNC_VOTE_MGR);
+		return ModuleFunctions.of((WebModuleFunction) new WebModuleFunction(this, VoteMgrPage.class)
+				.setName(MODULE_NAME + "-VoteMgrPage").setText($m("VoteContext.1")));
 	}
-
-	public WebModuleFunction FUNC_VOTE_MGR = (WebModuleFunction) new WebModuleFunction(this,
-			VoteMgrPage.class).setName(MODULE_NAME + "-VoteMgrPage").setText($m("VoteContext.1"));
 }
