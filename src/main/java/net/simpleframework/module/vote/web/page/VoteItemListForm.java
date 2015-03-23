@@ -18,7 +18,6 @@ import net.simpleframework.mvc.IForward;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.ButtonElement;
-import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.SpanElement;
@@ -49,9 +48,8 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 		final TablePagerBean tablePager = (TablePagerBean) addTablePagerBean(pp,
 				"VoteItemListForm_tbl", VoteItemList.class).setEditable(true).setShowFilterBar(false)
 				.setDblclickEdit(false).setNoResultDesc(null);
-		tablePager.addColumn(
-				new TablePagerColumn("text", $m("VoteForm.0")).setTextAlign(ETextAlign.left))
-				.addColumn(TablePagerColumn.OPE().setWidth(80));
+		tablePager.addColumn(new TablePagerColumn("text", $m("VoteForm.0"))).addColumn(
+				TablePagerColumn.OPE().setWidth(80));
 
 		// delete
 		addDeleteAjaxRequest(pp, "VoteItemListForm_delete").setHandlerMethod("doItemDelete");

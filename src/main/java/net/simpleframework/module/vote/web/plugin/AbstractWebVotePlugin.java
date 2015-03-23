@@ -25,7 +25,6 @@ import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.UrlForward;
 import net.simpleframework.mvc.common.element.AbstractElement;
-import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
@@ -86,16 +85,14 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 				.addComponentBean("AbstractWebVotePlugin_list", TablePagerBean.class)
 				.setShowLineNo(true).setShowCheckbox(true);
 		tablePager
-				.addColumn(new TablePagerColumn("text", $m("VoteForm.0")).setTextAlign(ETextAlign.left))
+				.addColumn(new TablePagerColumn("text", $m("VoteForm.0")))
 				.addColumn(
 						new TablePagerColumn("anonymous", $m("VoteForm.3"), 70)
 								.setPropertyClass(Boolean.class))
 				.addColumn(
 						new TablePagerColumn("expiredDate", $m("VoteForm.1"), 95)
 								.setPropertyClass(Date.class))
-				.addColumn(
-						new TablePagerColumn("userId", $m("AbstractWebVotePlugin.2"), 95)
-								.setTextAlign(ETextAlign.left))
+				.addColumn(new TablePagerColumn("userId", $m("AbstractWebVotePlugin.2"), 95))
 				.addColumn(
 						new TablePagerColumn("createDate", $m("AbstractWebVotePlugin.1"), 120)
 								.setPropertyClass(Date.class))

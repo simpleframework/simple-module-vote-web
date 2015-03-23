@@ -16,7 +16,6 @@ import net.simpleframework.mvc.IForward;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.ButtonElement;
-import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.Option;
@@ -43,12 +42,8 @@ public class VoteLogPage extends OneTableTemplatePage implements IVoteContextAwa
 		final TablePagerBean tablePager = addTablePagerBean(pp, "VoteLogPage_table",
 				VoteLogTable.class);
 		tablePager
-				.addColumn(
-						new TablePagerColumn("itemId", $m("VoteLogPage.3")).setTextAlign(ETextAlign.left)
-								.setFilter(false))
-				.addColumn(
-						new TablePagerColumn("userId", $m("VoteLogPage.0"), 110).setTextAlign(
-								ETextAlign.left).setFilter(false))
+				.addColumn(new TablePagerColumn("itemId", $m("VoteLogPage.3")).setFilter(false))
+				.addColumn(new TablePagerColumn("userId", $m("VoteLogPage.0"), 110).setFilter(false))
 				.addColumn(
 						new TablePagerColumn("createDate", $m("VoteLogPage.1"), 120)
 								.setPropertyClass(Date.class))

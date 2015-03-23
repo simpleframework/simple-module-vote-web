@@ -18,7 +18,6 @@ import net.simpleframework.mvc.IForward;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.ButtonElement;
-import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.LinkElement;
@@ -42,8 +41,7 @@ public class VoteForm2 extends VoteForm {
 	protected void addVoteComponents(final PageParameter pp) {
 		final TablePagerBean tablePager = addTablePagerBean(pp, "VoteForm_tbl", VoteGroupList.class)
 				.setEditable(true).setDblclickEdit(false);
-		tablePager
-				.addColumn(new TablePagerColumn("text", $m("VoteForm.6")).setTextAlign(ETextAlign.left))
+		tablePager.addColumn(new TablePagerColumn("text", $m("VoteForm.6")))
 				.addColumn(new TablePagerColumn("multiple", $m("VoteForm.7"), 100))
 				.addColumn(TablePagerColumn.OPE().setWidth(160));
 
