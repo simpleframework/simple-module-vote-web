@@ -37,7 +37,7 @@ import net.simpleframework.mvc.template.t1.T1ResizedTemplatePage;
 public class VoteMgrPage extends T1ResizedTemplatePage implements IVoteContextAware {
 
 	@Override
-	protected void onForward(final PageParameter pp) {
+	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
 		pp.addImportCSS(VoteForm.class, "/vote.css");

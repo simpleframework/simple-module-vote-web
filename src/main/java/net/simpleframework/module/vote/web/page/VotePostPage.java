@@ -40,7 +40,7 @@ import net.simpleframework.mvc.template.AbstractTemplatePage;
 public class VotePostPage extends AbstractTemplatePage implements IVoteContextAware {
 
 	@Override
-	protected void onForward(final PageParameter pp) {
+	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
 		pp.addImportCSS(VotePostPage.class, "/vote.css");
@@ -206,7 +206,7 @@ public class VotePostPage extends AbstractTemplatePage implements IVoteContextAw
 	}
 
 	@Override
-	public IForward forward(final PageParameter pp) {
+	public IForward forward(final PageParameter pp) throws Exception {
 		final Vote vote = getVote(pp);
 		if (vote == null) {
 			return new TextForward($m("VotePostPage.0"));

@@ -49,7 +49,7 @@ import net.simpleframework.mvc.template.lets.FormTableRow_ListTemplatePage;
 public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteContextAware {
 
 	@Override
-	protected void onForward(final PageParameter pp) {
+	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
 		addFormValidationBean(pp).addValidators(new Validator(EValidatorMethod.required, "#ve_text"),

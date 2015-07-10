@@ -36,7 +36,7 @@ import net.simpleframework.mvc.template.lets.OneTableTemplatePage;
 public class VoteLogPage extends OneTableTemplatePage implements IVoteContextAware {
 
 	@Override
-	protected void onForward(final PageParameter pp) {
+	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
 		final TablePagerBean tablePager = addTablePagerBean(pp, "VoteLogPage_table",

@@ -27,7 +27,7 @@ import net.simpleframework.mvc.template.AbstractTemplatePage;
 public class MyVoteSelectPage extends AbstractTemplatePage implements IVoteContextAware {
 
 	@Override
-	protected void onForward(final PageParameter pp) {
+	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
 		final TablePagerBean tablePager = (TablePagerBean) addComponentBean(pp,
