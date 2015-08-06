@@ -2,7 +2,6 @@ package net.simpleframework.module.vote.web.page;
 
 import static net.simpleframework.common.I18n.$m;
 
-import java.util.Date;
 import java.util.Map;
 
 import net.simpleframework.ado.query.IDataQuery;
@@ -41,12 +40,9 @@ public class VoteLogPage extends OneTableTemplatePage implements IVoteContextAwa
 
 		final TablePagerBean tablePager = addTablePagerBean(pp, "VoteLogPage_table",
 				VoteLogTable.class);
-		tablePager
-				.addColumn(new TablePagerColumn("itemId", $m("VoteLogPage.3")).setFilter(false))
+		tablePager.addColumn(new TablePagerColumn("itemId", $m("VoteLogPage.3")).setFilter(false))
 				.addColumn(new TablePagerColumn("userId", $m("VoteLogPage.0"), 110).setFilter(false))
-				.addColumn(
-						new TablePagerColumn("createDate", $m("VoteLogPage.1"), 120)
-								.setPropertyClass(Date.class))
+				.addColumn(TablePagerColumn.DATE("createDate", $m("VoteLogPage.1")))
 				.addColumn(new TablePagerColumn("ip", $m("VoteLogPage.2"), 110))
 				.addColumn(TablePagerColumn.OPE().setWidth(80));
 

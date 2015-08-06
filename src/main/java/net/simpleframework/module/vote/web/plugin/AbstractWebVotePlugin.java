@@ -1,9 +1,6 @@
 package net.simpleframework.module.vote.web.plugin;
 
 import static net.simpleframework.common.I18n.$m;
-
-import java.util.Date;
-
 import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.ctx.IModuleRef;
@@ -89,13 +86,9 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 				.addColumn(
 						new TablePagerColumn("anonymous", $m("VoteForm.3"), 70)
 								.setPropertyClass(Boolean.class))
-				.addColumn(
-						new TablePagerColumn("expiredDate", $m("VoteForm.1"), 95)
-								.setPropertyClass(Date.class))
+				.addColumn(TablePagerColumn.DATE("expiredDate", $m("VoteForm.1")))
 				.addColumn(new TablePagerColumn("userId", $m("AbstractWebVotePlugin.2"), 95))
-				.addColumn(
-						new TablePagerColumn("createDate", $m("AbstractWebVotePlugin.1"), 120)
-								.setPropertyClass(Date.class))
+				.addColumn(TablePagerColumn.DATE("createDate", $m("AbstractWebVotePlugin.1")))
 				.addColumn(TablePagerColumn.OPE().setWidth(160));
 		return tablePager;
 	}
