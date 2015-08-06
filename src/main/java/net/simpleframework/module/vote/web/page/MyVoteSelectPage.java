@@ -11,6 +11,7 @@ import net.simpleframework.module.vote.web.IVoteWebContext;
 import net.simpleframework.module.vote.web.page.t1.VoteMgrPage;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.ElementList;
+import net.simpleframework.mvc.common.element.JS;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
@@ -42,9 +43,8 @@ public class MyVoteSelectPage extends AbstractTemplatePage implements IVoteConte
 	}
 
 	public ElementList getButtons(final PageParameter pp) {
-		return ElementList.of(new LinkButton($m("MyVoteSelectPage.0")).setOnclick("$Actions.loc('"
-				+ ((IVoteWebContext) voteContext).getUrlsFactory().getUrl(pp, VoteMgrPage.class)
-				+ "', true);"));
+		return ElementList.of(new LinkButton($m("MyVoteSelectPage.0")).setOnclick(JS.loc(
+				((IVoteWebContext) voteContext).getUrlsFactory().getUrl(pp, VoteMgrPage.class), true)));
 	}
 
 	public static class MyVoteList extends AbstractDbTablePagerHandler {
