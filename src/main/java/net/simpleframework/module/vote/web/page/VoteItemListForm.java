@@ -196,7 +196,7 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 			kv.put("text", vi.getText());
 			final StringBuilder sb = new StringBuilder();
 			sb.append(getEditButton(vi));
-			sb.append(SpanElement.SPACE).append(AbstractTablePagerSchema.IMG_DOWNMENU);
+			sb.append(AbstractTablePagerSchema.IMG_DOWNMENU);
 			kv.add(TablePagerColumn.OPE, sb.toString());
 			return kv;
 		}

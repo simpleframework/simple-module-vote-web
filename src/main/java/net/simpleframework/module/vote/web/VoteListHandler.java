@@ -90,7 +90,7 @@ public abstract class VoteListHandler extends AbstractDbTablePagerHandler {
 				.append(SpanElement.SPACE);
 		sb.append(ButtonElement.logBtn().setText($m("VoteListHandler.0"))
 				.setOnclick("$Actions['AbstractWebVotePlugin_logWin']('voteId=" + id + "');"));
-		sb.append(SpanElement.SPACE).append(AbstractTablePagerSchema.IMG_DOWNMENU);
+		sb.append(AbstractTablePagerSchema.IMG_DOWNMENU);
 		kv.put(TablePagerColumn.OPE, sb.toString());
 		return kv;
 	}
