@@ -49,7 +49,7 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 				"VoteItemListForm_tbl", VoteItemList.class).setEditable(true).setShowFilterBar(false)
 				.setDblclickEdit(false).setNoResultDesc(null);
 		tablePager.addColumn(new TablePagerColumn("text", $m("VoteForm.0"))).addColumn(
-				TablePagerColumn.OPE().setWidth(80));
+				TablePagerColumn.OPE(80));
 
 		// delete
 		addDeleteAjaxRequest(pp, "VoteItemListForm_delete").setHandlerMethod("doItemDelete");

@@ -43,7 +43,7 @@ public class VoteForm2 extends VoteForm {
 				.setEditable(true).setDblclickEdit(false);
 		tablePager.addColumn(new TablePagerColumn("text", $m("VoteForm.6")))
 				.addColumn(new TablePagerColumn("multiple", $m("VoteForm.7"), 100))
-				.addColumn(TablePagerColumn.OPE().setWidth(160));
+				.addColumn(TablePagerColumn.OPE(160));
 
 		// group delete
 		addDeleteAjaxRequest(pp, "VoteForm_groupDelete").setHandlerMethod("doGroupDelete");

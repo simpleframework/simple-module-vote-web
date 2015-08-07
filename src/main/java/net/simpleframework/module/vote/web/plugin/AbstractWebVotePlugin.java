@@ -89,7 +89,7 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 				.addColumn(TablePagerColumn.DATE("expiredDate", $m("VoteForm.1")))
 				.addColumn(new TablePagerColumn("userId", $m("AbstractWebVotePlugin.2"), 95))
 				.addColumn(TablePagerColumn.DATE("createDate", $m("AbstractWebVotePlugin.1")))
-				.addColumn(TablePagerColumn.OPE().setWidth(160));
+				.addColumn(TablePagerColumn.OPE(160));
 		return tablePager;
 	}
 

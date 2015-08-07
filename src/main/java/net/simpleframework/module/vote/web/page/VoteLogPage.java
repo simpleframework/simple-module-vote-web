@@ -44,7 +44,7 @@ public class VoteLogPage extends OneTableTemplatePage implements IVoteContextAwa
 				.addColumn(new TablePagerColumn("userId", $m("VoteLogPage.0"), 110).setFilter(false))
 				.addColumn(TablePagerColumn.DATE("createDate", $m("VoteLogPage.1")))
 				.addColumn(new TablePagerColumn("ip", $m("VoteLogPage.2"), 110))
-				.addColumn(TablePagerColumn.OPE().setWidth(80));
+				.addColumn(TablePagerColumn.OPE(80));
 
 		// delete
 		addDeleteAjaxRequest(pp, "VoteLogPage_delete");

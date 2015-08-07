@@ -64,7 +64,7 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 		final TablePagerBean tablePager = addTablePagerBean(pp, "VoteForm_tbl", VoteItemList2.class)
 				.setEditable(true).setDblclickEdit(false);
 		tablePager.addColumn(new TablePagerColumn("text", $m("VoteForm.0"))).addColumn(
-				TablePagerColumn.OPE().setWidth(80));
+				TablePagerColumn.OPE(80));
 
 		// delete
 		addDeleteAjaxRequest(pp, "VoteForm_itemDelete").setHandlerMethod("doItemDelete");
