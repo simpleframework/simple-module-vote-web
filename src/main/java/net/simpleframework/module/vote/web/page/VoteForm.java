@@ -91,12 +91,7 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 
 	public IForward doExchange(final ComponentParameter cp) {
 		final IVoteItemService service = voteContext.getVoteItemService();
-		final VoteItem item = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID));
-		final VoteItem item2 = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID2));
-		if (item != null && item2 != null) {
-			service.exchange(item, item2,
-					Convert.toBool(cp.getParameter(TablePagerUtils.PARAM_MOVE_UP)));
-		}
+		service.exchange(TablePagerUtils.getExchangeBeans(cp, service));
 		return new JavascriptForward("$Actions['VoteForm_tbl']();");
 	}
 

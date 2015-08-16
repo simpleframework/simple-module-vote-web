@@ -5,7 +5,6 @@ import static net.simpleframework.common.I18n.$m;
 import java.util.Map;
 
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.ctx.trans.Transaction;
@@ -72,12 +71,7 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 
 	public IForward doExchange(final ComponentParameter cp) {
 		final IVoteItemService service = voteContext.getVoteItemService();
-		final VoteItem item = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID));
-		final VoteItem item2 = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID2));
-		if (item != null && item2 != null) {
-			service.exchange(item, item2,
-					Convert.toBool(cp.getParameter(TablePagerUtils.PARAM_MOVE_UP)));
-		}
+		service.exchange(TablePagerUtils.getExchangeBeans(cp, service));
 		return new JavascriptForward("$Actions['VoteItemListForm_tbl']();");
 	}
 

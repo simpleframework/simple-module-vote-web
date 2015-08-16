@@ -1,7 +1,6 @@
 package net.simpleframework.module.vote.web.plugin;
 
 import static net.simpleframework.common.I18n.$m;
-import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.trans.Transaction;
@@ -108,12 +107,7 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 		@Override
 		public IForward ajaxProcess(final ComponentParameter cp) {
 			final IVoteService service = voteContext.getVoteService();
-			final Vote item = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID));
-			final Vote item2 = service.getBean(cp.getParameter(TablePagerUtils.PARAM_MOVE_ROWID2));
-			if (item != null && item2 != null) {
-				service.exchange(item, item2,
-						Convert.toBool(cp.getParameter(TablePagerUtils.PARAM_MOVE_UP)));
-			}
+			service.exchange(TablePagerUtils.getExchangeBeans(cp, service));
 			return new JavascriptForward("$Actions['AbstractWebVotePlugin_list']();");
 		}
 	}
