@@ -45,7 +45,7 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 		super.onForward(pp);
 
 		final TablePagerBean tablePager = (TablePagerBean) addTablePagerBean(pp,
-				"VoteItemListForm_tbl", VoteItemList.class).setEditable(true).setShowFilterBar(false)
+				"VoteItemListForm_tbl", VoteItemList.class).setEditable(true).setFilter(false)
 				.setDblclickEdit(false).setNoResultDesc(null);
 		tablePager.addColumn(new TablePagerColumn("text", $m("VoteForm.0"))).addColumn(
 				TablePagerColumn.OPE(80));
