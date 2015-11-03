@@ -1,6 +1,8 @@
 package net.simpleframework.module.vote.web.page;
 
 import static net.simpleframework.common.I18n.$m;
+import net.simpleframework.ctx.trans.Transaction;
+import net.simpleframework.module.vote.IVoteContext;
 import net.simpleframework.module.vote.IVoteContextAware;
 import net.simpleframework.module.vote.VoteGroup;
 import net.simpleframework.mvc.JavascriptForward;
@@ -33,6 +35,7 @@ public class VoteGroupEditForm extends FormTableRowTemplatePage implements IVote
 		return getCacheBean(pp, voteContext.getVoteGroupService(), "groupId");
 	}
 
+	@Transaction(context = IVoteContext.class)
 	@Override
 	public JavascriptForward onSave(final ComponentParameter cp) throws Exception {
 		final VoteGroup vg = getVoteGroup(cp);

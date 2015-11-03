@@ -4,6 +4,8 @@ import static net.simpleframework.common.I18n.$m;
 
 import java.util.Map;
 
+import net.simpleframework.ctx.trans.Transaction;
+import net.simpleframework.module.vote.IVoteContext;
 import net.simpleframework.module.vote.IVoteContextAware;
 import net.simpleframework.module.vote.VoteItem;
 import net.simpleframework.mvc.IPageHandler.PageSelector;
@@ -40,6 +42,7 @@ public class VoteItemEditForm extends FormTableRowTemplatePage implements IVoteC
 		}
 	}
 
+	@Transaction(context = IVoteContext.class)
 	@Override
 	public JavascriptForward onSave(final ComponentParameter cp) throws Exception {
 		final VoteItem vi = getVoteItem(cp);
