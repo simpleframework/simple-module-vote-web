@@ -14,13 +14,11 @@
     <dependency>
       <groupId>net.simpleframework</groupId>
       <artifactId>simple-module-vote-service</artifactId>
-      <version>${simple.module.vote.service}</version>
     </dependency>
 
     <dependency>
       <groupId>net.simpleframework</groupId>
       <artifactId>simple-module-log-web</artifactId>
-      <version>${simple.module.log.web}</version>
       <optional>true</optional>
     </dependency>
 
