@@ -157,25 +157,11 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 				.of()
 				.append(getDeleteMenuItem())
 				.append(MenuItem.sep())
-				.append(
-						MenuItem
-								.of($m("Menu.move"))
-								.addChild(
-										MenuItem.of($m("Menu.up"), MenuItem.ICON_UP,
-												"$pager_action(item).move(true, '" + getExchangeAction()
-														+ "');"))
-								.addChild(
-										MenuItem.of($m("Menu.up2"), MenuItem.ICON_UP2,
-												"$pager_action(item).move2(true, '" + getExchangeAction()
-														+ "');"))
-								.addChild(
-										MenuItem.of($m("Menu.down"), MenuItem.ICON_DOWN,
-												"$pager_action(item).move(false, '" + getExchangeAction()
-														+ "');"))
-								.addChild(
-										MenuItem.of($m("Menu.down2"), MenuItem.ICON_DOWN2,
-												"$pager_action(item).move2(false, '" + getExchangeAction()
-														+ "');")));
+				// 移动菜单
+				.append(MenuItem.TBL_MOVE_UP(getExchangeAction()))
+				.append(MenuItem.TBL_MOVE_UP2(getExchangeAction()))
+				.append(MenuItem.TBL_MOVE_DOWN(getExchangeAction()))
+				.append(MenuItem.TBL_MOVE_DOWN2(getExchangeAction()));
 
 		@Override
 		public MenuItems getContextMenu(final ComponentParameter cp, final MenuBean menuBean,

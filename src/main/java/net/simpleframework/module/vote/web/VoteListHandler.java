@@ -50,21 +50,11 @@ public abstract class VoteListHandler extends AbstractDbTablePagerHandler {
 			.append(MenuItem.sep())
 			.append(MenuItem.itemDelete().setOnclick_act("AbstractWebVotePlugin_delete", "id"))
 			.append(MenuItem.sep())
-			.append(
-					MenuItem
-							.of($m("Menu.move"))
-							.addChild(
-									MenuItem.of($m("Menu.up"), MenuItem.ICON_UP,
-											"$pager_action(item).move(true, 'AbstractWebVotePlugin_move');"))
-							.addChild(
-									MenuItem.of($m("Menu.up2"), MenuItem.ICON_UP2,
-											"$pager_action(item).move2(true, 'AbstractWebVotePlugin_move');"))
-							.addChild(
-									MenuItem.of($m("Menu.down"), MenuItem.ICON_DOWN,
-											"$pager_action(item).move(false, 'AbstractWebVotePlugin_move');"))
-							.addChild(
-									MenuItem.of($m("Menu.down2"), MenuItem.ICON_DOWN2,
-											"$pager_action(item).move2(false, 'AbstractWebVotePlugin_move');")));
+			// 移动菜单
+			.append(MenuItem.TBL_MOVE_UP("AbstractWebVotePlugin_move"))
+			.append(MenuItem.TBL_MOVE_UP2("AbstractWebVotePlugin_move"))
+			.append(MenuItem.TBL_MOVE_DOWN("AbstractWebVotePlugin_move"))
+			.append(MenuItem.TBL_MOVE_DOWN2("AbstractWebVotePlugin_move"));
 
 	@Override
 	public MenuItems getContextMenu(final ComponentParameter cp, final MenuBean menuBean,
