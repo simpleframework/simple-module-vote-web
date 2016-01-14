@@ -148,8 +148,8 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 	}
 
 	@Override
-	public int getLabelWidth(final PageParameter pp) {
-		return 80;
+	public String getLabelWidth(final PageParameter pp) {
+		return "80px";
 	}
 
 	@Override

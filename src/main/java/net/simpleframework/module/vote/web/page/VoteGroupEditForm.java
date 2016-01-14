@@ -49,8 +49,8 @@ public class VoteGroupEditForm extends FormTableRowTemplatePage implements IVote
 	}
 
 	@Override
-	public int getLabelWidth(final PageParameter pp) {
-		return 60;
+	public String getLabelWidth(final PageParameter pp) {
+		return "60px";
 	}
 
 	private final InputElement groupId = InputElement.hidden("groupId");
