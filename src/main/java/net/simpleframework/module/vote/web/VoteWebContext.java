@@ -3,6 +3,7 @@ package net.simpleframework.module.vote.web;
 import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.ModuleFunctions;
+import net.simpleframework.ctx.ModuleRefUtils;
 import net.simpleframework.module.vote.impl.VoteContext;
 import net.simpleframework.module.vote.web.page.t1.VoteMgrPage;
 import net.simpleframework.mvc.ctx.WebModuleFunction;
@@ -22,7 +23,7 @@ public class VoteWebContext extends VoteContext implements IVoteWebContext {
 
 	@Override
 	public IModuleRef getLogRef() {
-		return getRef("net.simpleframework.module.vote.web.VoteLogRef");
+		return ModuleRefUtils.getRef("net.simpleframework.module.vote.web.VoteLogRef");
 	}
 
 	@Override
