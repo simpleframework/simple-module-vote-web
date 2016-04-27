@@ -63,8 +63,8 @@ public class VoteItemEditForm extends FormTableRowTemplatePage implements IVoteC
 	protected final TableRow r1 = new TableRow(new RowField($m("VoteForm.0"),
 			InputElement.hidden("itemId"), new InputElement("vi_text")));
 
-	protected final TableRow r2 = new TableRow(new RowField($m("VoteForm.2"), InputElement.textarea(
-			"vi_description").setRows(4)));
+	protected final TableRow r2 = new TableRow(
+			new RowField($m("VoteForm.2"), InputElement.textarea("vi_description").setRows(4)));
 
 	@Override
 	protected TableRows getTableRows(final PageParameter pp) {

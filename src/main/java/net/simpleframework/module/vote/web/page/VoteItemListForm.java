@@ -46,9 +46,9 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 
 		final TablePagerBean tablePager = (TablePagerBean) addTablePagerBean(pp,
 				"VoteItemListForm_tbl", VoteItemList.class).setEditable(true).setFilter(false)
-				.setDblclickEdit(false).setNoResultDesc(null);
-		tablePager.addColumn(new TablePagerColumn("text", $m("VoteForm.0"))).addColumn(
-				TablePagerColumn.OPE(80));
+						.setDblclickEdit(false).setNoResultDesc(null);
+		tablePager.addColumn(new TablePagerColumn("text", $m("VoteForm.0")))
+				.addColumn(TablePagerColumn.OPE(80));
 
 		// delete
 		addDeleteAjaxRequest(pp, "VoteItemListForm_delete").setHandlerMethod("doItemDelete");
@@ -85,8 +85,7 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 		return ElementList.of(
 				new LinkButton($m("VoteItemListForm.0"))
 						.setOnclick("$Actions['VoteItemListForm_tbl'].add_row();"),
-				SpanElement.SPACE,
-				LinkButton.deleteBtn().setOnclick(
+				SpanElement.SPACE, LinkButton.deleteBtn().setOnclick(
 						"$Actions['VoteItemListForm_tbl'].doAct('VoteItemListForm_delete');"));
 	}
 
@@ -109,8 +108,8 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 		}
 
 		protected ButtonElement getDeleteButton(final VoteItem vi) {
-			return ButtonElement.deleteBtn().setOnclick(
-					"$Actions['VoteItemListForm_delete']('id=" + vi.getId() + "');");
+			return ButtonElement.deleteBtn()
+					.setOnclick("$Actions['VoteItemListForm_delete']('id=" + vi.getId() + "');");
 		}
 
 		protected MenuItem getDeleteMenuItem() {
@@ -118,8 +117,8 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 		}
 
 		protected ButtonElement getEditButton(final VoteItem vi) {
-			return ButtonElement.editBtn().setOnclick(
-					"$Actions['VoteItemListForm_editWin']('itemId=" + vi.getId() + "');");
+			return ButtonElement.editBtn()
+					.setOnclick("$Actions['VoteItemListForm_editWin']('itemId=" + vi.getId() + "');");
 		}
 
 		protected String getExchangeAction() {
@@ -153,9 +152,7 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 			return super.doRowSave(cp, insertRows, updateRows);
 		}
 
-		private final MenuItems CONTEXT_MENUS = MenuItems
-				.of()
-				.append(getDeleteMenuItem())
+		private final MenuItems CONTEXT_MENUS = MenuItems.of().append(getDeleteMenuItem())
 				.append(MenuItem.sep())
 				// 移动菜单
 				.append(MenuItem.TBL_MOVE_UP(getExchangeAction()))
@@ -170,7 +167,8 @@ public class VoteItemListForm extends OneTableTemplatePage implements IVoteConte
 		}
 
 		@Override
-		protected Map<String, Object> getRowData(final ComponentParameter cp, final Object dataObject) {
+		protected Map<String, Object> getRowData(final ComponentParameter cp,
+				final Object dataObject) {
 			final VoteItem vi = (VoteItem) dataObject;
 			final KVMap kv = new KVMap();
 			kv.put("text", vi.getText());

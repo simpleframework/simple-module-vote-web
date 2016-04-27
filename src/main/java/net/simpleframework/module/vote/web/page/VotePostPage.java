@@ -125,9 +125,10 @@ public class VotePostPage extends AbstractTemplatePage implements IVoteContextAw
 					} else {
 						final int max = vg.getMultiple();
 						final ID id = vi.getId();
-						final Checkbox input = max > 1 ? new Checkbox(Convert.toString(id), vi.getText())
-								.setOnclick("VotePostPage_check(this, " + max + ");") : new Radio(
-								Convert.toString(id), vi.getText());
+						final Checkbox input = max > 1
+								? new Checkbox(Convert.toString(id), vi.getText())
+										.setOnclick("VotePostPage_check(this, " + max + ");")
+								: new Radio(Convert.toString(id), vi.getText());
 						sb.append(input.setName(name).setText(id));
 					}
 					sb.append("</div>");
@@ -144,9 +145,10 @@ public class VotePostPage extends AbstractTemplatePage implements IVoteContextAw
 				} else {
 					final int max = vote.getMultiple();
 					final ID id = vi.getId();
-					final Checkbox input = max > 1 ? new Checkbox(Convert.toString(id), vi.getText())
-							.setOnclick("VotePostPage_check(this, " + max + ");") : new Radio(
-							Convert.toString(id), vi.getText());
+					final Checkbox input = max > 1
+							? new Checkbox(Convert.toString(id), vi.getText())
+									.setOnclick("VotePostPage_check(this, " + max + ");")
+							: new Radio(Convert.toString(id), vi.getText());
 					sb.append(input.setName(viName).setText(id));
 				}
 				sb.append("</div>");

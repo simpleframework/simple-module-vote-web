@@ -129,7 +129,8 @@ public class VoteForm2 extends VoteForm {
 		}
 
 		@Override
-		protected Map<String, Object> getRowData(final ComponentParameter cp, final Object dataObject) {
+		protected Map<String, Object> getRowData(final ComponentParameter cp,
+				final Object dataObject) {
 			final VoteGroup vg = (VoteGroup) dataObject;
 			final KVMap kv = new KVMap();
 			final StringBuilder sb = new StringBuilder();
@@ -142,13 +143,11 @@ public class VoteForm2 extends VoteForm {
 			kv.put("text", sb.toString());
 			kv.put("multiple", vg.getMultiple());
 			sb.setLength(0);
-			sb.append(
-					ButtonElement.deleteBtn().setOnclick(
-							"$Actions['VoteForm_groupDelete']('id=" + vg.getId() + "');")).append(
-					SpanElement.SPACE);
-			sb.append(
-					new ButtonElement($m("VoteForm.8"))
-							.setOnclick("$Actions['VoteForm_itemListWin']('groupId=" + vg.getId() + "');"))
+			sb.append(ButtonElement.deleteBtn()
+					.setOnclick("$Actions['VoteForm_groupDelete']('id=" + vg.getId() + "');"))
+					.append(SpanElement.SPACE);
+			sb.append(new ButtonElement($m("VoteForm.8"))
+					.setOnclick("$Actions['VoteForm_itemListWin']('groupId=" + vg.getId() + "');"))
 					.append(SpanElement.SPACE);
 			kv.put(TablePagerColumn.OPE, sb.toString());
 			return kv;

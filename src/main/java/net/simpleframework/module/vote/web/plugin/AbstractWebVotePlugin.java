@@ -1,6 +1,7 @@
 package net.simpleframework.module.vote.web.plugin;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.trans.Transaction;
@@ -36,8 +37,8 @@ import net.simpleframework.mvc.component.ui.window.WindowBean;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class AbstractWebVotePlugin extends AbstractModulePlugin implements IWebVotePlugin,
-		IVoteContextAware {
+public abstract class AbstractWebVotePlugin extends AbstractModulePlugin
+		implements IWebVotePlugin, IVoteContextAware {
 
 	@Override
 	public AbstractElement<?> toAddVoteElement(final PageParameter pp, final Object contentId) {
@@ -51,8 +52,8 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 	@Override
 	public TablePagerBean addVoteComponent_Tbl(final PageParameter pp) {
 		// log
-		pp.addComponentBean("AbstractWebVotePlugin_logPage", AjaxRequestBean.class).setUrlForward(
-				AbstractMVCPage.url(VoteLogPage.class));
+		pp.addComponentBean("AbstractWebVotePlugin_logPage", AjaxRequestBean.class)
+				.setUrlForward(AbstractMVCPage.url(VoteLogPage.class));
 		pp.addComponentBean("AbstractWebVotePlugin_logWin", WindowBean.class)
 				.setContentRef("AbstractWebVotePlugin_logPage").setHeight(540).setWidth(864);
 
@@ -63,8 +64,8 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 		}
 
 		// move
-		pp.addComponentBean("AbstractWebVotePlugin_move", AjaxRequestBean.class).setHandlerClass(
-				MoveAction.class);
+		pp.addComponentBean("AbstractWebVotePlugin_move", AjaxRequestBean.class)
+				.setHandlerClass(MoveAction.class);
 
 		// delete
 		pp.addComponentBean("AbstractWebVotePlugin_delete", AjaxRequestBean.class)
@@ -80,11 +81,9 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 		final TablePagerBean tablePager = pp
 				.addComponentBean("AbstractWebVotePlugin_list", TablePagerBean.class)
 				.setShowLineNo(true).setShowCheckbox(true);
-		tablePager
-				.addColumn(new TablePagerColumn("text", $m("VoteForm.0")))
-				.addColumn(
-						new TablePagerColumn("anonymous", $m("VoteForm.3"), 70)
-								.setPropertyClass(Boolean.class))
+		tablePager.addColumn(new TablePagerColumn("text", $m("VoteForm.0")))
+				.addColumn(new TablePagerColumn("anonymous", $m("VoteForm.3"), 70)
+						.setPropertyClass(Boolean.class))
 				.addColumn(TablePagerColumn.DATE("expiredDate", $m("VoteForm.1")))
 				.addColumn(new TablePagerColumn("userId", $m("AbstractWebVotePlugin.2"), 95))
 				.addColumn(TablePagerColumn.DATE("createDate", $m("AbstractWebVotePlugin.1")))
@@ -95,8 +94,8 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 	@Override
 	public void addVoteComponent_addBtn(final PageParameter pp) {
 		// 添加投票
-		pp.addComponentBean("AbstractWebVotePlugin_addForm", AjaxRequestBean.class).setHandlerClass(
-				VoteFormAjaxRequest.class);
+		pp.addComponentBean("AbstractWebVotePlugin_addForm", AjaxRequestBean.class)
+				.setHandlerClass(VoteFormAjaxRequest.class);
 		pp.addComponentBean("AbstractWebVotePlugin_addWin", WindowBean.class)
 				.setContentRef("AbstractWebVotePlugin_addForm").setTitle($m("AbstractWebVotePlugin.0"))
 				.setHeight(540).setWidth(900);
@@ -122,15 +121,14 @@ public abstract class AbstractWebVotePlugin extends AbstractModulePlugin impleme
 		}
 	}
 
-	public static class VoteFormAjaxRequest extends DefaultAjaxRequestHandler implements
-			IVoteContextAware {
+	public static class VoteFormAjaxRequest extends DefaultAjaxRequestHandler
+			implements IVoteContextAware {
 
 		@Override
 		public IForward ajaxProcess(final ComponentParameter cp) {
 			final Vote vote = voteContext.getVoteService().getBean(cp.getParameter("voteId"));
-			return new UrlForward(
-					AbstractMVCPage.url(vote != null && vote.isGroups() ? VoteForm2.class
-							: VoteForm.class));
+			return new UrlForward(AbstractMVCPage
+					.url(vote != null && vote.isGroups() ? VoteForm2.class : VoteForm.class));
 		}
 	}
 }

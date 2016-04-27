@@ -87,7 +87,8 @@ public class VoteLogPage extends OneTableTemplatePage implements IVoteContextAwa
 		}
 
 		@Override
-		protected Map<String, Object> getRowData(final ComponentParameter cp, final Object dataObject) {
+		protected Map<String, Object> getRowData(final ComponentParameter cp,
+				final Object dataObject) {
 			final VoteLog log = (VoteLog) dataObject;
 			final KVMap kv = new KVMap();
 			kv.put("itemId", voteContext.getVoteItemService().getBean(log.getItemId()));
@@ -96,8 +97,8 @@ public class VoteLogPage extends OneTableTemplatePage implements IVoteContextAwa
 			kv.put("userId", TemplateUtils.toIconUser(cp, userId, $m("VoteLogPage.4")));
 			kv.put("ip", log.getIp());
 			final StringBuilder sb = new StringBuilder();
-			sb.append(ButtonElement.deleteBtn().setOnclick(
-					"$Actions['VoteLogPage_delete']('id=" + log.getId() + "');"));
+			sb.append(ButtonElement.deleteBtn()
+					.setOnclick("$Actions['VoteLogPage_delete']('id=" + log.getId() + "');"));
 			kv.put(TablePagerColumn.OPE, sb.toString());
 			return kv;
 		}

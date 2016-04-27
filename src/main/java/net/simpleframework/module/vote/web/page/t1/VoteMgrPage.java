@@ -53,8 +53,8 @@ public class VoteMgrPage extends T1ResizedTemplatePage implements IVoteContextAw
 	}
 
 	protected static IWebVotePlugin getVoteMark(final PageParameter pp) {
-		return (IWebVotePlugin) voteContext.getPluginRegistry().getPlugin(
-				pp.getIntParameter("voteMark"));
+		return (IWebVotePlugin) voteContext.getPluginRegistry()
+				.getPlugin(pp.getIntParameter("voteMark"));
 	}
 
 	@Override
@@ -64,8 +64,9 @@ public class VoteMgrPage extends T1ResizedTemplatePage implements IVoteContextAw
 
 	@Override
 	public TabButtons getTabButtons(final PageParameter pp) {
-		final TabButtons tabs = TabButtons.of(new TabButton($m("VoteContext.2"),
-				url(MyVotePage.class)), new TabButton($m("VoteContext.1"), url(VoteMgrPage.class)));
+		final TabButtons tabs = TabButtons.of(
+				new TabButton($m("VoteContext.2"), url(MyVotePage.class)),
+				new TabButton($m("VoteContext.1"), url(VoteMgrPage.class)));
 		return tabs;
 	}
 
@@ -82,8 +83,8 @@ public class VoteMgrPage extends T1ResizedTemplatePage implements IVoteContextAw
 				"$Actions.loc('" + uFactory.getUrl(pp, VoteMgrPage.class) + "?voteMark=' + $F(this));");
 		for (final IModulePlugin mark : voteContext.getPluginRegistry().allPlugin()) {
 			final int iMark = mark.getMark();
-			select.addElements(new Option(iMark, mark.getText()).setSelected(iMark == pp
-					.getIntParameter("voteMark")));
+			select.addElements(new Option(iMark, mark.getText())
+					.setSelected(iMark == pp.getIntParameter("voteMark")));
 		}
 		return ElementList.of(select);
 	}

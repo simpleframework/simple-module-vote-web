@@ -18,8 +18,8 @@ import net.simpleframework.mvc.component.ui.window.WindowBean;
 public class VoteLogRef extends LogRef {
 
 	public void addLogComponent(final PageParameter pp) {
-		pp.addComponentBean("AbstractWebVotePlugin_log2Page", AjaxRequestBean.class).setUrlForward(
-				AbstractMVCPage.url(VoteEditLogPage.class));
+		pp.addComponentBean("AbstractWebVotePlugin_log2Page", AjaxRequestBean.class)
+				.setUrlForward(AbstractMVCPage.url(VoteEditLogPage.class));
 		pp.addComponentBean("AbstractWebVotePlugin_log2Win", WindowBean.class)
 				.setContentRef("AbstractWebVotePlugin_log2Page").setHeight(540).setWidth(864);
 	}

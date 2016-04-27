@@ -33,20 +33,16 @@ public abstract class VoteListHandler extends AbstractDbTablePagerHandler {
 	@InjectCtx
 	protected IVoteContext voteContext;
 
-	private final MenuItems CONTEXT_MENUS = MenuItems
-			.of()
+	private final MenuItems CONTEXT_MENUS = MenuItems.of()
 			.append(MenuItem.itemEdit().setOnclick_act("AbstractWebVotePlugin_addWin", "voteId"))
-			.append(
-					MenuItem.of($m("Button.Preview")).setOnclick_act("AbstractWebVotePlugin_previewWin",
-							"voteId"))
+			.append(MenuItem.of($m("Button.Preview"))
+					.setOnclick_act("AbstractWebVotePlugin_previewWin", "voteId"))
 			.append(MenuItem.sep())
-			.append(
-					MenuItem.of($m("VoteListHandler.0")).setOnclick_act("AbstractWebVotePlugin_logWin",
-							"voteId"))
+			.append(MenuItem.of($m("VoteListHandler.0")).setOnclick_act("AbstractWebVotePlugin_logWin",
+					"voteId"))
 			.append(MenuItem.sep())
-			.append(
-					MenuItem.itemLog().setTitle($m("VoteListHandler.1"))
-							.setOnclick_act("AbstractWebVotePlugin_log2Win", "beanId"))
+			.append(MenuItem.itemLog().setTitle($m("VoteListHandler.1"))
+					.setOnclick_act("AbstractWebVotePlugin_log2Win", "beanId"))
 			.append(MenuItem.sep())
 			.append(MenuItem.itemDelete().setOnclick_act("AbstractWebVotePlugin_delete", "id"))
 			.append(MenuItem.sep())
@@ -74,9 +70,8 @@ public abstract class VoteListHandler extends AbstractDbTablePagerHandler {
 		kv.put("createDate", vote.getCreateDate());
 		kv.put("expiredDate", Convert.toDateString(vote.getExpiredDate(), "yyyy-MM-dd"));
 		final StringBuilder sb = new StringBuilder();
-		sb.append(
-				new ButtonElement($m("Button.Preview"))
-						.setOnclick("$Actions['AbstractWebVotePlugin_previewWin']('voteId=" + id + "');"))
+		sb.append(new ButtonElement($m("Button.Preview"))
+				.setOnclick("$Actions['AbstractWebVotePlugin_previewWin']('voteId=" + id + "');"))
 				.append(SpanElement.SPACE);
 		sb.append(ButtonElement.logBtn().setText($m("VoteListHandler.0"))
 				.setOnclick("$Actions['AbstractWebVotePlugin_logWin']('voteId=" + id + "');"));

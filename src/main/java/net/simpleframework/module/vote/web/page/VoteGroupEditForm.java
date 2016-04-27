@@ -1,6 +1,7 @@
 package net.simpleframework.module.vote.web.page;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.ctx.trans.Transaction;
 import net.simpleframework.module.vote.IVoteContext;
 import net.simpleframework.module.vote.IVoteContextAware;

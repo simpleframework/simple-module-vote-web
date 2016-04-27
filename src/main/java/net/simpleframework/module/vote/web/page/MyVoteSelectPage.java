@@ -32,8 +32,8 @@ public class MyVoteSelectPage extends AbstractTemplatePage implements IVoteConte
 		super.onForward(pp);
 
 		final TablePagerBean tablePager = (TablePagerBean) addComponentBean(pp,
-				"MyVoteSelectPage_list", TablePagerBean.class).setContainerId(hashId).setHandlerClass(
-				MyVoteList.class);
+				"MyVoteSelectPage_list", TablePagerBean.class).setContainerId(hashId)
+						.setHandlerClass(MyVoteList.class);
 		tablePager.addColumn(new TablePagerColumn("topic"));
 	}
 

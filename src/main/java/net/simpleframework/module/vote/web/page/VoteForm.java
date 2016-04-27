@@ -63,8 +63,8 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 	protected void addVoteComponents(final PageParameter pp) {
 		final TablePagerBean tablePager = addTablePagerBean(pp, "VoteForm_tbl", VoteItemList2.class)
 				.setEditable(true).setDblclickEdit(false);
-		tablePager.addColumn(new TablePagerColumn("text", $m("VoteForm.0"))).addColumn(
-				TablePagerColumn.OPE(80));
+		tablePager.addColumn(new TablePagerColumn("text", $m("VoteForm.0")))
+				.addColumn(TablePagerColumn.OPE(80));
 
 		// delete
 		addDeleteAjaxRequest(pp, "VoteForm_itemDelete").setHandlerMethod("doItemDelete");
@@ -128,8 +128,8 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 
 		JavascriptForward js;
 		if (insert) {
-			js = new JavascriptForward("$Actions['AbstractWebVotePlugin_addForm']('voteId=").append(
-					vote.getId()).append("');");
+			js = new JavascriptForward("$Actions['AbstractWebVotePlugin_addForm']('voteId=")
+					.append(vote.getId()).append("');");
 		} else {
 			js = new JavascriptForward("$Actions['AbstractWebVotePlugin_addWin'].close();");
 		}
@@ -154,8 +154,8 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 
 	@Override
 	protected TableRows getTableRows(final PageParameter pp) {
-		final InputElement voteMark = InputElement.hidden("voteMark").setText(
-				pp.getParameter("voteMark"));
+		final InputElement voteMark = InputElement.hidden("voteMark")
+				.setText(pp.getParameter("voteMark"));
 
 		final InputElement voteId = InputElement.hidden("voteId");
 		final InputElement ve_text = new InputElement("ve_text");
@@ -197,11 +197,11 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 	public ElementList getLeftElements(final PageParameter pp) {
 		final ElementList el = ElementList.of();
 		final Vote vote = getVote(pp);
-		el.append(new Checkbox("ve_anonymous", $m("VoteForm.3")).setChecked(vote != null ? vote
-				.isAnonymous() : false));
+		el.append(new Checkbox("ve_anonymous", $m("VoteForm.3"))
+				.setChecked(vote != null ? vote.isAnonymous() : false));
 		el.append(SpanElement.SPACE);
-		el.append(new Checkbox("ve_logging", $m("VoteForm.4")).setChecked(vote != null ? vote
-				.isLogging() : true));
+		el.append(new Checkbox("ve_logging", $m("VoteForm.4"))
+				.setChecked(vote != null ? vote.isLogging() : true));
 		if (vote == null) {
 			el.append(SpanElement.SPACE);
 			el.append(new Checkbox("ve_groups", $m("VoteForm.10"))
@@ -228,8 +228,8 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 
 		@Override
 		protected ButtonElement getDeleteButton(final VoteItem vi) {
-			return ButtonElement.deleteBtn().setOnclick(
-					"$Actions['VoteForm_itemDelete']('id=" + vi.getId() + "');");
+			return ButtonElement.deleteBtn()
+					.setOnclick("$Actions['VoteForm_itemDelete']('id=" + vi.getId() + "');");
 		}
 
 		@Override
@@ -244,8 +244,8 @@ public class VoteForm extends FormTableRow_ListTemplatePage implements IVoteCont
 
 		@Override
 		protected ButtonElement getEditButton(final VoteItem vi) {
-			return ButtonElement.editBtn().setOnclick(
-					"$Actions['VoteForm_itemEditWin']('itemId=" + vi.getId() + "');");
+			return ButtonElement.editBtn()
+					.setOnclick("$Actions['VoteForm_itemEditWin']('itemId=" + vi.getId() + "');");
 		}
 	}
 }
